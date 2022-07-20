@@ -77,7 +77,7 @@ data class Payment(
 
         fun setAmount(amount: Amount): Builder = apply { this.amount = amount }
 
-        fun setAmount(value: Double, currency: String): Builder = setAmount(Amount(value, currency))
+        fun setAmount(value: Double, currency: Currencies): Builder = setAmount(Amount(value, currency.name))
 
         fun description(description: String): Builder = apply { this.description = description }
 
