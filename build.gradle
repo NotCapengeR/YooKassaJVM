@@ -3,7 +3,7 @@ plugins {
     id 'java'
 }
 
-group 'com.jvm.youkassa'
+group 'com.jvm.yookassa'
 version '1.0-SNAPSHOT'
 
 repositories {

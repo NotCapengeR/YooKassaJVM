@@ -1,4 +1,4 @@
-package youkassa.models
+package yookassa.models
 
 data class Amount(val value: Double, val currency: String)
 

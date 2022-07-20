@@ -1,4 +1,4 @@
-package youkassa.exceptions
+package yookassa.exceptions
 
 internal open class PaymentException(message: String? = null) : RuntimeException(message)
 

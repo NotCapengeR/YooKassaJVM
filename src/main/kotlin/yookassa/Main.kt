@@ -1,7 +1,6 @@
-package youkassa
+package yookassa
 
-import youkassa.models.Payment
-
+import yookassa.models.Payment
 
 fun main() {
 
