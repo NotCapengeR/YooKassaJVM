@@ -1,4 +1,7 @@
+package youkassa
+
 import youkassa.models.Payment
+
 
 fun main() {
 
