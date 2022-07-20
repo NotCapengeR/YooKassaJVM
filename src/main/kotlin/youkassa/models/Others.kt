@@ -1,4 +1,4 @@
-package models
+package youkassa.models
 
 data class Amount(val value: Double, val currency: String)
 
@@ -24,6 +24,11 @@ data class Transfer(
     val platformFeeAmount: Amount? = null,
     val description: String? = null,
     val metaData: Metadata? = null
+)
+
+data class CancellationDetails(
+    val party: String,
+    val reason: String,
 )
 
 data class Deal(

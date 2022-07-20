@@ -1,6 +1,6 @@
-package models
+package youkassa.models
 
-import exceptions.PaymentNotInitializedException
+import youkassa.exceptions.PaymentNotInitializedException
 
 
 data class Payment(

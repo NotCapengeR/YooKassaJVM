@@ -1,4 +1,4 @@
-package models
+package youkassa.models
 
 data class PaymentResponse(
     val id: String,
@@ -24,11 +24,6 @@ data class PaymentResponse(
     val merchantCustomerId: String? = null
 ) {
     data class Recipient(val accountId: String, val gatewayId: String)
-
-    data class CancellationDetails(
-        val party: String,
-        val reason: String,
-    )
 
     data class AuthorizationDetails(
         val rrn: String? = null,

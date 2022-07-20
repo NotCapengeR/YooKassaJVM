@@ -1,4 +1,4 @@
-import models.Payment
+import youkassa.models.Payment
 
 fun main() {
 
