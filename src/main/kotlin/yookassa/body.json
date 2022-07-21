@@ -1,0 +1,36 @@
+{
+  "amount": {
+    "value": "1000,33",
+    "currency": "RUB"
+  },
+  "description": "Hueta",
+  "receipt": {
+    "items": [
+      {
+        "amount": {
+          "value": "10.0",
+          "currency": "RUB"
+        },
+        "description": "description",
+        "quantity": 2,
+        "vatCode": 1
+      },
+      {
+        "amount": {
+          "value": "20.0",
+          "currency": "RUB"
+        },
+        "description": "abalbal",
+        "quantity": 5,
+        "vatCode": 1
+      }
+    ]
+  },
+  "recipient": {
+    "gatewayId": "recipient"
+  },
+  "confirmation": {
+    "returnUrl": "https://.......com",
+    "type": "redirect"
+  }
+}

@@ -69,5 +69,4 @@ data class Receipt(
         val markMode: String? = null,
         val paymentSubjectIndustryDetails: List<PaymentSubjectIndustryDetails>? = null
     )
-
 }
