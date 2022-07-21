@@ -1,6 +1,7 @@
 package yookassa.models
 
 import yookassa.exceptions.PaymentNotInitializedException
+import yookassa.utils.toAmount
 
 data class Payment(
     val amount: Amount,
