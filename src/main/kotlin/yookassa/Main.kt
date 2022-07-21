@@ -9,9 +9,10 @@ import yookassa.models.Receipt
 fun main() {
 
     val gson = Gson()
+    Config.setDefaultCurrency(Currencies.RUB)
 
     val payment = Payment.Builder()
-        .setAmount(1000.326, Currencies.RUB)
+        .setAmount(1000.326)
         .description("Hueta")
         .recipient("recipient")
         .receipt(

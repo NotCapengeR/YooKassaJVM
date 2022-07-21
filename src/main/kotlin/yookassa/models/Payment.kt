@@ -1,7 +1,9 @@
 package yookassa.models
 
+import yookassa.Config
 import yookassa.exceptions.PaymentNotInitializedException
 import yookassa.utils.toAmount
+import java.math.BigDecimal
 
 data class Payment(
     val amount: Amount,
@@ -77,7 +79,33 @@ data class Payment(
 
         fun setAmount(amount: Amount): Builder = apply { this.amount = amount }
 
-        fun setAmount(value: Double, currency: Currencies): Builder = setAmount(Amount(value.toAmount(), currency.name))
+        @JvmOverloads
+        fun setAmount(value: Double, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
+            setAmount(Amount(value.toAmount(), currency.name))
+
+        @JvmOverloads
+        fun setAmount(value: Float, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
+            setAmount(Amount(value.toAmount(), currency.name))
+
+        @JvmOverloads
+        fun setAmount(value: Int, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
+            setAmount(Amount(value.toAmount(), currency.name))
+
+        @JvmOverloads
+        fun setAmount(value: Long, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
+            setAmount(Amount(value.toAmount(), currency.name))
+
+        @JvmOverloads
+        fun setAmount(value: Short, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
+            setAmount(Amount(value.toAmount(), currency.name))
+
+        @JvmOverloads
+        fun setAmount(value: Byte, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
+            setAmount(Amount(value.toAmount(), currency.name))
+
+        @JvmOverloads
+        fun setAmount(value: BigDecimal, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
+            setAmount(Amount(value.toAmount(), currency.name))
 
         fun description(description: String): Builder = apply { this.description = description }
 
