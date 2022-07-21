@@ -2,7 +2,6 @@ package yookassa.models
 
 import yookassa.exceptions.PaymentNotInitializedException
 
-
 data class Payment(
     val amount: Amount,
     val description: String? = null,
@@ -77,13 +76,17 @@ data class Payment(
 
         fun setAmount(amount: Amount): Builder = apply { this.amount = amount }
 
-        fun setAmount(value: Double, currency: Currencies): Builder = setAmount(Amount(value, currency.name))
+        fun setAmount(value: Double, currency: Currencies): Builder = setAmount(Amount(value.toAmount(), currency.name))
 
         fun description(description: String): Builder = apply { this.description = description }
 
         fun recipient(recipient: Recipient): Builder = apply { this.recipient = recipient }
 
         fun recipient(gatewayId: String): Builder = recipient(Recipient(gatewayId))
+
+        fun receipt(receipt: Receipt?): Builder = apply { this.receipt = receipt }
+
+        fun confirmation(confirmation: Confirmation?): Builder = apply { this.confirmation = confirmation }
 
         fun create(block: Builder.() -> Unit): Payment = apply(block).build()
 
@@ -96,15 +99,16 @@ data class Payment(
         fun merchantCustomerId(id: String): Builder = apply { this.merchantCustomerId = id }
 
         fun build(): Payment {
-            when {
-                amount == NULL_AMOUNT -> throw PaymentNotInitializedException("Amount for payment is not defined!")
-                else -> {/* do nothing */}
+            when (amount) {
+                NULL_AMOUNT -> throw PaymentNotInitializedException("Amount for payment is not defined!")
+                else -> {/* do nothing */
+                }
             }
             return Payment(this)
         }
 
         private companion object {
-            private val NULL_AMOUNT: Amount = Amount(Double.NaN, "null")
+            private val NULL_AMOUNT: Amount = Amount("null", "null")
             private val NULL_PAYMENT: Payment = Payment(
                 amount = NULL_AMOUNT,
                 description = null,
@@ -144,8 +148,7 @@ data class Payment(
         )
 
         data class Passenger(
-            val firstname: String,
-            val lastname: String
+            val firstname: String, val lastname: String
         )
     }
 
@@ -164,16 +167,13 @@ data class Payment(
         data class External(val locale: String? = null) : Confirmation(EXTERNAL)
 
         data class MobileApplication(
-            val returnUrl: String,
-            val locale: String? = null
+            val returnUrl: String, val locale: String? = null
         ) : Confirmation(MOBILE_APPLICATION)
 
         data class QRCode(val locale: String? = null) : Confirmation(QR_CODE)
 
         data class Redirect(
-            val returnUrl: String,
-            val locale: String? = null,
-            val enforce: Boolean? = null
+            val returnUrl: String, val locale: String? = null, val enforce: Boolean? = null
         ) : Confirmation(REDIRECT)
 
 
