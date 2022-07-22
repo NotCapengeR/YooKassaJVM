@@ -1,5 +1,6 @@
 package yookassa.models.item
 
+import yookassa.Config
 import yookassa.models.Amount
 import yookassa.models.Currencies
 import yookassa.utils.toAmount
@@ -57,7 +58,8 @@ data class Item(
         var markMode: String? = null
         var paymentSubjectIndustryDetails: List<PaymentSubjectIndustryDetails>? = null
 
-        fun amount(value: Double, currency: Currencies): Builder =
+        @JvmOverloads
+        fun amount(value: Double, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
             apply { this.amount = Amount(value.toAmount(), currency.name) }
 
         fun description(value: String): Builder = apply { this.description = value }
@@ -66,8 +68,8 @@ data class Item(
         fun measure(value: Measure): Builder = apply { this.measure = value.value }
         fun markQuantity(numerator: Int, denominator: Int): Builder =
             apply {
-                if (this.measure != Measure.PIECE.name) throw RuntimeException("Measure type must be 'piece'")
-                if (numerator > denominator) throw RuntimeException("Numerator value can't exceed denominator value")
+                if (this.measure != Measure.PIECE.name) throw IllegalArgumentException("Measure type must be 'piece'")
+                if (numerator > denominator) throw IllegalArgumentException("Numerator value can't exceed denominator value")
                 this.markQuantity = MarkQuantity(numerator, denominator)
             }
 
@@ -87,25 +89,26 @@ data class Item(
 
     }
 
-    class MarkQuantity(val numerator: Int, val denominator: Int)
-
-    data class MarkCodeInfo(
-        val markCodeRaw: String? = null,
-        val unknown: String? = null,
-        val ean8: String? = null,
-        val ean13: String? = null,
-        val gs10: String? = null,
-        val gs1m: String? = null,
-        val short: String? = null,
-        val fur: String? = null,
-        val egais20: String? = null,
-        val egais30: String? = null
-    )
-
-    data class PaymentSubjectIndustryDetails(
-        val federalId: String,
-        val documentDate: String,
-        val documentNumber: String,
-        val value: String
-    )
 }
+
+data class MarkQuantity(val numerator: Int, val denominator: Int)
+
+data class MarkCodeInfo(
+    val markCodeRaw: String? = null,
+    val unknown: String? = null,
+    val ean8: String? = null,
+    val ean13: String? = null,
+    val gs10: String? = null,
+    val gs1m: String? = null,
+    val short: String? = null,
+    val fur: String? = null,
+    val egais20: String? = null,
+    val egais30: String? = null
+)
+
+data class PaymentSubjectIndustryDetails(
+    val federalId: String,
+    val documentDate: String,
+    val documentNumber: String,
+    val value: String
+)

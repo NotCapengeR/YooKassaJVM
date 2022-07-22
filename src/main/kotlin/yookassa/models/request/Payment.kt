@@ -170,19 +170,18 @@ data class Airline(
     val bookingReference: String? = null,
     val passengers: List<Passenger>? = null,
     val legs: List<Leg>? = null
-) {
+)
 
-    data class Leg(
-        val departureAirport: String,
-        val destinationAirport: String,
-        val departureDate: String,
-        val carriedCode: String? = null
-    )
+data class Leg(
+    val departureAirport: String,
+    val destinationAirport: String,
+    val departureDate: String,
+    val carriedCode: String? = null
+)
 
-    data class Passenger(
-        val firstname: String, val lastname: String
-    )
-}
+data class Passenger(
+    val firstname: String, val lastname: String
+)
 
 data class Card(
     val number: String,

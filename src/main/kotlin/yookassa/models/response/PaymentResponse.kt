@@ -24,56 +24,56 @@ data class PaymentResponse(
     val authorizationDetails: AuthorizationDetails? = null,
     val transfers: List<Transfer>? = null,
     val merchantCustomerId: String? = null
-) {
-    data class Recipient(val accountId: String, val gatewayId: String)
+)
 
-    data class AuthorizationDetails(
-        val rrn: String? = null,
-        val authCode: String? = null,
-        val threeDSecure: ThreeDSecure,
-    ) {
-        data class ThreeDSecure(val applied: Boolean)
-    }
+data class Recipient(val accountId: String, val gatewayId: String)
 
-    data class PayoutBankDetails(
-        val fullName: String,
-        val shortName: String,
-        val address: String,
-        val inn: String,
-        val bankName: String,
-        val bankBranch: String,
-        val bankBik: String,
-        val account: String,
-        val kpp: String? = null
-    )
+data class AuthorizationDetails(
+    val rrn: String? = null,
+    val authCode: String? = null,
+    val threeDSecure: ThreeDSecure,
+)
 
-    sealed class Confirmation(val type: String) {
+data class ThreeDSecure(val applied: Boolean)
 
-        data class Embedded(val token: String) : Confirmation(EMBEDDED)
+data class PayoutBankDetails(
+    val fullName: String,
+    val shortName: String,
+    val address: String,
+    val inn: String,
+    val bankName: String,
+    val bankBranch: String,
+    val bankBik: String,
+    val account: String,
+    val kpp: String? = null
+)
 
-        object External : Confirmation(EXTERNAL)
+sealed class Confirmation(val type: String) {
 
-        data class MobileApplication(
-            val confirmationUrl: String
-        ) : Confirmation(MOBILE_APPLICATION)
+    data class Embedded(val token: String) : Confirmation(EMBEDDED)
 
-        data class QRCode(val confirmationData: String) : Confirmation(QR_CODE)
+    object External : Confirmation(EXTERNAL)
 
-        data class Redirect(
-            val confirmationUrl: String,
-            val enforce: Boolean? = null,
-            val returnUrl: String? = null,
-        ) : Confirmation(REDIRECT)
+    data class MobileApplication(
+        val confirmationUrl: String
+    ) : Confirmation(MOBILE_APPLICATION)
+
+    data class QRCode(val confirmationData: String) : Confirmation(QR_CODE)
+
+    data class Redirect(
+        val confirmationUrl: String,
+        val enforce: Boolean? = null,
+        val returnUrl: String? = null,
+    ) : Confirmation(REDIRECT)
 
 
-        private companion object {
-            // Confirmation types
-            private const val EMBEDDED: String = "embedded"
-            private const val EXTERNAL: String = "external"
-            private const val MOBILE_APPLICATION: String = "mobile_application"
-            private const val QR_CODE: String = "qr"
-            private const val REDIRECT: String = "redirect"
+    private companion object {
+        // Confirmation types
+        private const val EMBEDDED: String = "embedded"
+        private const val EXTERNAL: String = "external"
+        private const val MOBILE_APPLICATION: String = "mobile_application"
+        private const val QR_CODE: String = "qr"
+        private const val REDIRECT: String = "redirect"
 
-        }
     }
 }

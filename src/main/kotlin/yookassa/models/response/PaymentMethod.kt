@@ -57,7 +57,7 @@ sealed class PaymentMethod(val type: String) {
         val id: String,
         val saved: Boolean,
         val title: String? = null,
-        val payoutBankDetails: PaymentResponse.PayoutBankDetails? = null,
+        val payoutBankDetails: PayoutBankDetails? = null,
         val paymentPurpose: String,
         val vatData: VatData,
     ) : PaymentMethod(SBERBANK_BUSINESS_ONLINE)
