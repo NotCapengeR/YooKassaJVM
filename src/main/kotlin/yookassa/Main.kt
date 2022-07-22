@@ -3,6 +3,7 @@ package yookassa
 import com.google.gson.Gson
 import yookassa.models.*
 import yookassa.models.item.Item
+import yookassa.models.item.VatCode
 
 fun main() {
 
@@ -12,7 +13,7 @@ fun main() {
         .amount(10.0, Currencies.RUB)
         .description("description")
         .quantity(2)
-        .vatCode(Item.VatCode.VAT_10)
+        .vatCode(VatCode.VAT_10)
         .build()
 
     println(gson.toJson(item))

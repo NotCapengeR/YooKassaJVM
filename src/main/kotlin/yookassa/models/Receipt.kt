@@ -19,27 +19,6 @@ data class Receipt(
         val phone: String? = null
     )
 
-    data class PaymentSubjectIndustryDetails(
-        val federalId: String,
-        val documentDate: String,
-        val documentNumber: String,
-        val value: String
-    )
-
-    data class MarkQuantity(val numerator: Int, val denominator: Int)
-
-    data class MarkCodeInfo(
-        val markCodeRaw: String? = null,
-        val unknown: String? = null,
-        val ean8: String? = null,
-        val ean13: String? = null,
-        val gs10: String? = null,
-        val gs1m: String? = null,
-        val short: String? = null,
-        val fur: String? = null,
-        val egais20: String? = null,
-        val egais30: String? = null
-    )
 
     data class ReceiptIndustryDetails(
         val federalId: String,
@@ -53,4 +32,8 @@ data class Receipt(
         val value: String,
         val createdAt: String
     )
+
+
+
+
 }
