@@ -46,7 +46,3 @@ data class Refund(
     }
 }
 
-data class RefundSettlement(
-    val type: String = "payout",
-    val amount: Amount
-)
