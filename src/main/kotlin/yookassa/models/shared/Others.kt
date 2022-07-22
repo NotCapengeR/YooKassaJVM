@@ -1,4 +1,4 @@
-package yookassa.models
+package yookassa.models.shared
 
 data class Amount(val value: String, val currency: String)
 

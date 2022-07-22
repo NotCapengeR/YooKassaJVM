@@ -1,6 +1,9 @@
 package yookassa.models.response
 
-import yookassa.models.*
+import yookassa.models.shared.Amount
+import yookassa.models.shared.CancellationDetails
+import yookassa.models.shared.Metadata
+import yookassa.models.shared.Transfer
 
 data class PaymentResponse(
     val id: String,

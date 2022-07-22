@@ -1,8 +1,8 @@
-package yookassa.models.item
+package yookassa.models.shared.item
 
 import yookassa.Config
-import yookassa.models.Amount
-import yookassa.models.Currencies
+import yookassa.models.shared.Amount
+import yookassa.models.shared.Currencies
 import yookassa.utils.toAmount
 import kotlin.properties.Delegates
 

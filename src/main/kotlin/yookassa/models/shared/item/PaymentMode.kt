@@ -1,4 +1,4 @@
-package yookassa.models.item
+package yookassa.models.shared.item
 
 enum class PaymentMode(val value: String) {
     FULL_PREPAYMENT("full_prepayment"),

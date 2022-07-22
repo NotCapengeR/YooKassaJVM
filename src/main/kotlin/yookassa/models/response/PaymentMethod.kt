@@ -1,6 +1,6 @@
 package yookassa.models.response
 
-import yookassa.models.VatData
+import yookassa.models.shared.VatData
 
 sealed class PaymentMethod(val type: String) {
 
