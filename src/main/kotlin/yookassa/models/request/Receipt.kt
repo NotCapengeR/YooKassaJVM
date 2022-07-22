@@ -1,4 +1,4 @@
-package yookassa.models
+package yookassa.models.request
 
 import yookassa.models.item.Item
 
