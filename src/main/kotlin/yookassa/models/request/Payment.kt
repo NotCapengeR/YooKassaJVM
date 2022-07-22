@@ -1,7 +1,6 @@
 package yookassa.models.request
 
 import yookassa.Config
-import yookassa.exceptions.PaymentNotInitializedException
 import yookassa.models.*
 import yookassa.utils.toAmount
 import java.math.BigDecimal
@@ -45,7 +44,7 @@ data class Payment(
     )
 
     class Builder {
-        var amount: Amount = NULL_AMOUNT
+        lateinit var amount: Amount
             private set
         var description: String? = null
             private set
@@ -130,9 +129,8 @@ data class Payment(
 
         fun build(): Payment {
             when (amount) {
-                NULL_AMOUNT -> throw PaymentNotInitializedException("Amount for payment is not defined!")
-                else -> {/* do nothing */
-                }
+              //  NULL_AMOUNT -> throw PaymentNotInitializedException("Amount for payment is not defined!")
+                else -> {/* do nothing */}
             }
             return Payment(this)
         }
