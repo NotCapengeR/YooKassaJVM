@@ -22,18 +22,7 @@ sealed class PaymentMethod(val type: String) {
         val saved: Boolean,
         val title: String? = null,
         val card: Card? = null
-    ) : PaymentMethod(BANK_CARD) {
-        data class Card(
-            val BIN: String? = null,
-            val last4: String,
-            val expiryYear: String,
-            val expiryMonth: String,
-            val cardType: String? = null,
-            val issuerCountry: String? = null,
-            val issuerName: String? = null,
-            val source: String? = null
-        )
-    }
+    ) : PaymentMethod(BANK_CARD)
 
     data class Installments(
         val id: String,
@@ -142,3 +131,14 @@ sealed class PaymentMethod(val type: String) {
         private const val WEB_MONEY: String = "webmoney"
     }
 }
+
+data class Card(
+    val BIN: String? = null,
+    val last4: String,
+    val expiryYear: String,
+    val expiryMonth: String,
+    val cardType: String? = null,
+    val issuerCountry: String? = null,
+    val issuerName: String? = null,
+    val source: String? = null
+)
