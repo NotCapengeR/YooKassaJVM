@@ -82,7 +82,7 @@ data class Item(
         fun paymentSubjectIndustryDetails(vararg details: PaymentSubjectIndustryDetails): Builder =
             apply { this.paymentSubjectIndustryDetails = details.toList() }
 
-        fun build() = Item(this)
+        fun build(): Item = Item(this)
 
 
     }
