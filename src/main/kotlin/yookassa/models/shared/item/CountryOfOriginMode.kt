@@ -1,4 +1,4 @@
-package yookassa.models.item
+package yookassa.models.shared.item
 
 enum class CountryOfOriginMode {
     AU, AD, AE, AF, AG, AI, AL, AM, AN, AO, AQ, AR, AS, AT, AW, AZ, BA, BB, BD, BE, BF, BG, BH, BI, BJ,

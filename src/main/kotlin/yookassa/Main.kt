@@ -1,9 +1,9 @@
 package yookassa
 
 import com.google.gson.Gson
-import yookassa.models.*
-import yookassa.models.item.Item
-import yookassa.models.item.VatCode
+import yookassa.models.shared.item.Item
+import yookassa.models.shared.item.VatCode
+import yookassa.models.shared.Currencies
 
 fun main() {
 

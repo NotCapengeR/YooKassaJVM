@@ -1,4 +1,4 @@
-package yookassa.models
+package yookassa.models.shared
 
 enum class Currencies {
     AED, AFN, ALL, AMD, ANG, AOA, ARS, AUD, AWG, AZN, BAM, BBD, BDT, BGN, BHD, BIF, BMD, BND, BOB, BOV, BRL, BSD, BTN,

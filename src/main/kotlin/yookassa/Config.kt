@@ -1,6 +1,6 @@
 package yookassa
 
-import yookassa.models.Currencies
+import yookassa.models.shared.Currencies
 
 object Config {
     var DEFAULT_CURRENCY: Currencies = Currencies.USD

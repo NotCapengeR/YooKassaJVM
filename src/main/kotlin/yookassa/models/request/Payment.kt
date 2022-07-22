@@ -1,7 +1,7 @@
 package yookassa.models.request
 
 import yookassa.Config
-import yookassa.models.*
+import yookassa.models.shared.*
 import yookassa.utils.toAmount
 import java.math.BigDecimal
 

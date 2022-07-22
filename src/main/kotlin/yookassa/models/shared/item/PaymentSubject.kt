@@ -1,4 +1,4 @@
-package yookassa.models.item
+package yookassa.models.shared.item
 
 enum class PaymentSubject(val value: String) {
     COMMODITY("commodity"),
