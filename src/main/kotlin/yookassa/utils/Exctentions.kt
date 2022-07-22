@@ -53,3 +53,19 @@ fun BigDecimal.toAmount(): String {
     }
     return FORMAT.format(this.toDouble()).replace(".", ",")
 }
+
+fun UInt.toAmount(): String {
+    return FORMAT.format(this).replace(".", ",")
+}
+
+fun UShort.toAmount(): String {
+    return FORMAT.format(this).replace(".", ",")
+}
+
+fun ULong.toAmount(): String {
+    return FORMAT.format(this).replace(".", ",")
+}
+
+fun UByte.toAmount(): String {
+    return FORMAT.format(this).replace(".", ",")
+}

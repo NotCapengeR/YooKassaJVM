@@ -103,6 +103,18 @@ data class Payment(
         fun setAmount(value: Byte, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
             setAmount(Amount(value.toAmount(), currency.name))
 
+        fun setAmount(value: UByte, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
+            setAmount(Amount(value.toAmount(), currency.name))
+
+        fun setAmount(value: UInt, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
+            setAmount(Amount(value.toAmount(), currency.name))
+
+        fun setAmount(value: UShort, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
+            setAmount(Amount(value.toAmount(), currency.name))
+
+        fun setAmount(value: ULong, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
+            setAmount(Amount(value.toAmount(), currency.name))
+
         @JvmOverloads
         fun setAmount(value: BigDecimal, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
             setAmount(Amount(value.toAmount(), currency.name))
