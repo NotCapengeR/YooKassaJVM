@@ -1,7 +1,7 @@
 package yookassa.models.item
 
 import yookassa.models.Amount
-import yookassa.models.Currencies
+import yookassa.models.Currencie
 import yookassa.models.toAmount
 import kotlin.properties.Delegates
 
@@ -57,7 +57,7 @@ data class Item(
         var markMode: String? = null
         var paymentSubjectIndustryDetails: List<PaymentSubjectIndustryDetails>? = null
 
-        fun amount(value: Double, currency: Currencies): Builder =
+        fun amount(value: Double, currency: Currencie): Builder =
             apply { this.amount = Amount(value.toAmount(), currency.name) }
 
         fun description(value: String): Builder = apply { this.description = value }
@@ -66,7 +66,7 @@ data class Item(
         fun measure(value: Measure): Builder = apply { this.measure = value.value }
         fun markQuantity(numerator: Int, denominator: Int): Builder =
             apply {
-                if (this.measure != Measure.PIECE.name) throw RuntimeException("Measure type must be 'piece'")
+                if (this.measure != Measure.PIECE.value) throw RuntimeException("Measure type must be 'piece'")
                 if (numerator > denominator) throw RuntimeException("Numerator value can't exceed denominator value")
                 this.markQuantity = MarkQuantity(numerator, denominator)
             }
@@ -87,7 +87,7 @@ data class Item(
 
     }
 
-    class MarkQuantity(val numerator: Int, val denominator: Int)
+    data class MarkQuantity(val numerator: Int, val denominator: Int)
 
     data class MarkCodeInfo(
         val markCodeRaw: String? = null,
