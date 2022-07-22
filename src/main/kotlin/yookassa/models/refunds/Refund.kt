@@ -35,23 +35,16 @@ data class Refund(
         fun amount(value: Double, currency: Currencie): Builder =
             apply { this.amount = Amount(value.toAmount(), currency.name) }
 
-        fun description(value: String): Builder = apply { this.description = value}
+        fun description(value: String): Builder = apply { this.description = value }
         fun receipt(value: Receipt): Builder = apply { this.receipt = value }
         fun sources(vararg value: Source): Builder = apply { this.sources = value.toList() }
-        fun deal(vararg settlement: RefundSettlement): Builder = apply { this.deal = Deal(settlement.toList()) }
+        fun deal(vararg amount: Pair<Double, Currencie>): Builder = apply {
+            this.deal = Deal(amount.map { RefundSettlement(amount = Amount(it.first.toAmount(), it.second.name)) })
+        }
+
         fun build() = Refund(this)
     }
 }
-
-data class Source(
-    val accountId: String,
-    val amount: Amount,
-    val platformFeeAmount: Amount? = null,
-)
-
-data class Deal(
-    val refundSettlements: List<RefundSettlement>
-)
 
 data class RefundSettlement(
     val type: String = "payout",
