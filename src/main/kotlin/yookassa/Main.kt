@@ -1,42 +1,19 @@
 package yookassa
 
 import com.google.gson.Gson
-import yookassa.models.Amount
-import yookassa.models.Currencies
-import yookassa.models.Payment
-import yookassa.models.Receipt
+import yookassa.models.*
+import yookassa.models.item.Item
 
 fun main() {
 
     val gson = Gson()
 
-    val payment = Payment.Builder()
-        .setAmount(1000.326, Currencies.RUB)
-        .description("Hueta")
-        .recipient("recipient")
-        .receipt(
-            Receipt(
-            listOf(
-                Receipt.Item(
-                    amount = Amount("10.0", "RUB"),
-                    description = "description",
-                    quantity = 2,
-                    vatCode = 1
-                ),
-                Receipt.Item(
-                    amount = Amount("20.0", "RUB"),
-                    description = "abalbal",
-                    quantity = 5,
-                    vatCode = 1
-                    )
-            )
-        ))
-        .confirmation(
-            Payment.Confirmation.Redirect(
-                returnUrl = "https://.......com"
-            )
-        )
+    val item = Item.Builder()
+        .amount(10.0, Currencies.RUB)
+        .description("description")
+        .quantity(2)
+        .vatCode(Item.VatCode.VAT_10)
         .build()
 
-    println(gson.toJson(payment))
+    println(gson.toJson(item))
 }

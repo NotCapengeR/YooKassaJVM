@@ -1,5 +1,7 @@
 package yookassa.models
 
+import yookassa.models.item.Item
+
 data class Receipt(
     val items: List<Item>,
     val customer: Customer? = null,
@@ -50,23 +52,5 @@ data class Receipt(
         val operationId: Int,
         val value: String,
         val createdAt: String
-    )
-
-    data class Item(
-        val amount: Amount,
-        val description: String,
-        val quantity: Int,
-        val vatCode: Int,
-        val measure: String? = null,
-        val markQuantity: MarkQuantity? = null,
-        val paymentSubject: String? = null,
-        val paymentMode: String? = null,
-        val countyOfOriginMode: String? = null,
-        val customerDeclarationNumber: String? = null,
-        val excise: String? = null,
-        val productCode: String? = null,
-        val markCodeInfo: MarkCodeInfo? = null,
-        val markMode: String? = null,
-        val paymentSubjectIndustryDetails: List<PaymentSubjectIndustryDetails>? = null
     )
 }
