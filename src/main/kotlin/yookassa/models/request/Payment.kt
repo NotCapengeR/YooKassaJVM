@@ -1,7 +1,8 @@
-package yookassa.models
+package yookassa.models.request
 
 import yookassa.Config
 import yookassa.exceptions.PaymentNotInitializedException
+import yookassa.models.*
 import yookassa.utils.toAmount
 import java.math.BigDecimal
 
@@ -160,60 +161,61 @@ data class Payment(
     }
 
 
-    data class Recipient(val gatewayId: String)
+}
 
-    data class Airline(
-        val ticketNumber: String? = null,
-        val bookingReference: String? = null,
-        val passengers: List<Passenger>? = null,
-        val legs: List<Leg>? = null
-    ) {
+data class Recipient(val gatewayId: String)
 
-        data class Leg(
-            val departureAirport: String,
-            val destinationAirport: String,
-            val departureDate: String,
-            val carriedCode: String? = null
-        )
+data class Airline(
+    val ticketNumber: String? = null,
+    val bookingReference: String? = null,
+    val passengers: List<Passenger>? = null,
+    val legs: List<Leg>? = null
+) {
 
-        data class Passenger(
-            val firstname: String, val lastname: String
-        )
-    }
-
-    data class Card(
-        val number: String,
-        val expiryYeah: String,
-        val expiryMonth: String,
-        val csc: String? = null,
-        val cardholder: String? = null
+    data class Leg(
+        val departureAirport: String,
+        val destinationAirport: String,
+        val departureDate: String,
+        val carriedCode: String? = null
     )
 
-    sealed class Confirmation(val type: String) {
+    data class Passenger(
+        val firstname: String, val lastname: String
+    )
+}
 
-        data class Embedded(val locale: String? = null) : Confirmation(EMBEDDED)
+data class Card(
+    val number: String,
+    val expiryYeah: String,
+    val expiryMonth: String,
+    val csc: String? = null,
+    val cardholder: String? = null
+)
 
-        data class External(val locale: String? = null) : Confirmation(EXTERNAL)
+sealed class Confirmation(val type: String) {
 
-        data class MobileApplication(
-            val returnUrl: String, val locale: String? = null
-        ) : Confirmation(MOBILE_APPLICATION)
+    data class Embedded(val locale: String? = null) : Confirmation(EMBEDDED)
 
-        data class QRCode(val locale: String? = null) : Confirmation(QR_CODE)
+    data class External(val locale: String? = null) : Confirmation(EXTERNAL)
 
-        data class Redirect(
-            val returnUrl: String, val locale: String? = null, val enforce: Boolean? = null
-        ) : Confirmation(REDIRECT)
+    data class MobileApplication(
+        val returnUrl: String, val locale: String? = null
+    ) : Confirmation(MOBILE_APPLICATION)
+
+    data class QRCode(val locale: String? = null) : Confirmation(QR_CODE)
+
+    data class Redirect(
+        val returnUrl: String, val locale: String? = null, val enforce: Boolean? = null
+    ) : Confirmation(REDIRECT)
 
 
-        private companion object {
-            // Confirmation types
-            private const val EMBEDDED: String = "embedded"
-            private const val EXTERNAL: String = "external"
-            private const val MOBILE_APPLICATION: String = "mobile_application"
-            private const val QR_CODE: String = "qr"
-            private const val REDIRECT: String = "redirect"
+    private companion object {
+        // Confirmation types
+        private const val EMBEDDED: String = "embedded"
+        private const val EXTERNAL: String = "external"
+        private const val MOBILE_APPLICATION: String = "mobile_application"
+        private const val QR_CODE: String = "qr"
+        private const val REDIRECT: String = "redirect"
 
-        }
     }
 }

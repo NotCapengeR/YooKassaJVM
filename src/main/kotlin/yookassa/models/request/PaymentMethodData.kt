@@ -1,4 +1,6 @@
-package yookassa.models
+package yookassa.models.request
+
+import yookassa.models.VatData
 
 sealed class PaymentMethodData(val type: String) {
 
@@ -6,7 +8,7 @@ sealed class PaymentMethodData(val type: String) {
 
     data class MobileBalance(val phone: String) : PaymentMethodData(MOBILE_BALANCE)
 
-    data class BankCard(val card: Payment.Card? = null) : PaymentMethodData(BANK_CARD)
+    data class BankCard(val card: Card? = null) : PaymentMethodData(BANK_CARD)
 
     object Installments : PaymentMethodData(INSTALLMENTS)
 

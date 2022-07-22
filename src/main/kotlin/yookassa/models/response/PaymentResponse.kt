@@ -1,4 +1,6 @@
-package yookassa.models
+package yookassa.models.response
+
+import yookassa.models.*
 
 data class PaymentResponse(
     val id: String,
