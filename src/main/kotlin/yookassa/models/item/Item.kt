@@ -2,7 +2,7 @@ package yookassa.models.item
 
 import yookassa.models.Amount
 import yookassa.models.Currencies
-import yookassa.models.toAmount
+import yookassa.utils.toAmount
 import kotlin.properties.Delegates
 
 data class Item(
