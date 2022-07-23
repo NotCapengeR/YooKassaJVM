@@ -1,5 +1,6 @@
 package yookassa.models.request
 
+import yookassa.models.shared.TaxSystemCode
 import yookassa.models.shared.item.Item
 
 data class Receipt(
@@ -10,7 +11,80 @@ data class Receipt(
     val taxSystemCode: Int? = null,
     val recipientIndustryDetails: List<ReceiptIndustryDetails>? = null,
     val recipientOperationalDetails: RecipientOperationalDetails? = null
-)
+) {
+
+    private constructor(builder: Builder) : this(
+        items = builder.items,
+        customer = builder.customer,
+        phone = builder.phone,
+        email = builder.email,
+        taxSystemCode = builder.taxSystemCode?.code,
+        recipientIndustryDetails = builder.recipientIndustryDetails,
+        recipientOperationalDetails = builder.recipientOperationalDetails
+    )
+
+    class Builder {
+        lateinit var items: List<Item>
+            private set
+        var customer: Customer? = null
+            private set
+        var phone: String? = null
+            private set
+        var email: String? = null
+            private set
+        var taxSystemCode: TaxSystemCode? = null
+            private set
+        var recipientIndustryDetails: List<ReceiptIndustryDetails>? = null
+            private set
+        var recipientOperationalDetails: RecipientOperationalDetails? = null
+            private set
+
+        fun setItems(items: List<Item>): Builder = apply { this.items = items }
+
+        fun setItems(vararg items: Item): Builder = setItems(items.toList())
+
+        fun phone(phone: String?): Builder = apply { this.phone = phone }
+
+        fun email(email: String?): Builder = apply { this.email = email }
+
+        fun taxSystemCode(code: TaxSystemCode?): Builder = apply { this.taxSystemCode = code }
+
+        fun customer(customer: Customer?): Builder = apply { this.customer = customer }
+
+        @JvmOverloads
+        fun customer(
+            fullName: String? = null,
+            inn: Int? = null,
+            email: String? = null,
+            phone: String? = null
+        ): Builder =
+            customer(Customer(
+                fullName,
+                inn,
+                email,
+                phone
+            ))
+
+        fun recipientIndustryDetails(details: List<ReceiptIndustryDetails>?): Builder = apply {
+            this.recipientIndustryDetails = details
+        }
+
+        fun recipientIndustryDetails(vararg details: ReceiptIndustryDetails): Builder =
+            recipientIndustryDetails(details.toList())
+
+        fun recipientOperationalDetails(details: RecipientOperationalDetails): Builder = apply {
+            this.recipientOperationalDetails = details
+        }
+
+        fun recipientOperationalDetails(
+            operationId: Int,
+            value: String,
+            createdAt: String
+        ): Builder = recipientOperationalDetails(RecipientOperationalDetails(operationId, value, createdAt))
+
+        fun build(): Receipt = Receipt(this)
+    }
+}
 
 data class Customer(
     val fullName: String? = null,

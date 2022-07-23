@@ -1,6 +1,6 @@
 package yookassa.models.shared.item
 
-import yookassa.Config
+import yookassa.YooKassaConfig
 import yookassa.models.shared.Amount
 import yookassa.models.shared.Currencies
 import yookassa.utils.toAmount
@@ -42,30 +42,30 @@ data class Item(
     )
 
     class Builder {
-        lateinit var amount: Amount
-        lateinit var description: String
-        var quantity by Delegates.notNull<Int>()
-        var vatCode by Delegates.notNull<Int>()
-        var measure: String? = null
-        var markQuantity: MarkQuantity? = null
-        var paymentSubject: String? = null
-        var paymentMode: String? = null
-        var countyOfOriginMode: String? = null
-        var customerDeclarationNumber: String? = null
-        var excise: String? = null
-        var productCode: String? = null
-        var markCodeInfo: MarkCodeInfo? = null
-        var markMode: String? = null
-        var paymentSubjectIndustryDetails: List<PaymentSubjectIndustryDetails>? = null
+        internal lateinit var amount: Amount
+        internal lateinit var description: String
+        internal var quantity by Delegates.notNull<Int>()
+        internal var vatCode by Delegates.notNull<Int>()
+        internal var measure: String? = null
+        internal var markQuantity: MarkQuantity? = null
+        internal var paymentSubject: String? = null
+        internal var paymentMode: String? = null
+        internal var countyOfOriginMode: String? = null
+        internal var customerDeclarationNumber: String? = null
+        internal var excise: String? = null
+        internal var productCode: String? = null
+        internal var markCodeInfo: MarkCodeInfo? = null
+        internal var markMode: String? = null
+        internal var paymentSubjectIndustryDetails: List<PaymentSubjectIndustryDetails>? = null
 
         @JvmOverloads
-        fun amount(value: Double, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
+        fun amount(value: Double, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
             apply { this.amount = Amount(value.toAmount(), currency.name) }
 
         fun description(value: String): Builder = apply { this.description = value }
         fun quantity(value: Int): Builder = apply { this.quantity = value }
         fun vatCode(value: VatCode): Builder = apply { this.vatCode = value.ordinal }
-        fun measure(value: Measure): Builder = apply { this.measure = value.value }
+        fun measure(value: Measure?): Builder = apply { this.measure = value?.value }
         fun markQuantity(numerator: Int, denominator: Int): Builder =
             apply {
                 if (this.measure != Measure.PIECE.name) throw IllegalArgumentException("Measure type must be 'piece'")
@@ -73,22 +73,24 @@ data class Item(
                 this.markQuantity = MarkQuantity(numerator, denominator)
             }
 
-        fun paymentSubject(value: PaymentSubject): Builder = apply { this.paymentSubject = value.value }
-        fun paymentMode(value: PaymentMode): Builder = apply { this.paymentMode = value.value }
-        fun countyOfOriginMode(value: CountryOfOriginMode): Builder = apply { this.countyOfOriginMode = value.name }
-        fun customerDeclarationNumber(value: String): Builder = apply { this.customerDeclarationNumber = value }
-        fun excise(value: String): Builder = apply { this.excise = value }
-        fun productCode(value: String): Builder = apply { this.productCode = value }
-        fun markCodeInfo(value: MarkCodeInfo): Builder = apply { this.markCodeInfo = value }
-        fun markMode(value: String): Builder = apply { this.markMode = value }
+        fun markQuantity(markQuantity: MarkQuantity?): Builder = apply { this.markQuantity = markQuantity }
+
+        fun paymentSubject(value: PaymentSubject?): Builder = apply { this.paymentSubject = value?.value }
+        fun paymentMode(value: PaymentMode?): Builder = apply { this.paymentMode = value?.value }
+        fun countyOfOriginMode(value: CountryOfOriginMode?): Builder = apply { this.countyOfOriginMode = value?.name }
+        fun customerDeclarationNumber(value: String?): Builder = apply { this.customerDeclarationNumber = value }
+        fun excise(value: String?): Builder = apply { this.excise = value }
+        fun productCode(value: String?): Builder = apply { this.productCode = value }
+        fun markCodeInfo(value: MarkCodeInfo?): Builder = apply { this.markCodeInfo = value }
+        fun markMode(value: String?): Builder = apply { this.markMode = value }
         fun paymentSubjectIndustryDetails(vararg details: PaymentSubjectIndustryDetails): Builder =
             apply { this.paymentSubjectIndustryDetails = details.toList() }
 
+        fun paymentSubjectIndustryDetails(details: List<PaymentSubjectIndustryDetails>?): Builder =
+            apply { this.paymentSubjectIndustryDetails = details }
+
         fun build(): Item = Item(this)
-
-
     }
-
 }
 
 data class MarkQuantity(val numerator: Int, val denominator: Int)

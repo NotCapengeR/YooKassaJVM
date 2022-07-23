@@ -1,6 +1,6 @@
 package yookassa.models.request
 
-import yookassa.Config
+import yookassa.YooKassaConfig
 import yookassa.models.shared.*
 import yookassa.utils.toAmount
 import java.math.BigDecimal
@@ -44,84 +44,84 @@ data class Payment(
     )
 
     class Builder {
-        lateinit var amount: Amount
+        internal lateinit var amount: Amount
             private set
-        var description: String? = null
+        internal var description: String? = null
             private set
-        var receipt: Receipt? = null
+        internal var receipt: Receipt? = null
             private set
-        var recipient: Recipient? = null
+        internal var recipient: Recipient? = null
             private set
-        var paymentToken: String? = null
+        internal var paymentToken: String? = null
             private set
-        var paymentMethodId: String? = null
+        internal var paymentMethodId: String? = null
             private set
-        var paymentMethodData: PaymentMethodData? = null
+        internal var paymentMethodData: PaymentMethodData? = null
             private set
-        var confirmation: Confirmation? = null
+        internal var confirmation: Confirmation? = null
             private set
-        var savePaymentMethod: Boolean? = null
+        internal var savePaymentMethod: Boolean? = null
             private set
-        var capture: Boolean? = null
+        internal var capture: Boolean? = null
             private set
-        var clientIp: String? = null
+        internal var clientIp: String? = null
             private set
-        var metaData: Metadata? = null
+        internal var metaData: Metadata? = null
             private set
-        var airline: Airline? = null
+        internal var airline: Airline? = null
             private set
-        var transfers: List<Transfer>? = null
+        internal var transfers: List<Transfer>? = null
             private set
-        var deal: Deal? = null
+        internal var deal: Deal? = null
             private set
-        var merchantCustomerId: String? = null
+        internal var merchantCustomerId: String? = null
             private set
 
         fun setAmount(amount: Amount): Builder = apply { this.amount = amount }
 
         @JvmOverloads
-        fun setAmount(value: Double, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
+        fun setAmount(value: Double, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
             setAmount(Amount(value.toAmount(), currency.name))
 
         @JvmOverloads
-        fun setAmount(value: Float, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
+        fun setAmount(value: Float, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
             setAmount(Amount(value.toAmount(), currency.name))
 
         @JvmOverloads
-        fun setAmount(value: Int, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
+        fun setAmount(value: Int, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
             setAmount(Amount(value.toAmount(), currency.name))
 
         @JvmOverloads
-        fun setAmount(value: Long, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
+        fun setAmount(value: Long, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
             setAmount(Amount(value.toAmount(), currency.name))
 
         @JvmOverloads
-        fun setAmount(value: Short, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
+        fun setAmount(value: Short, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
             setAmount(Amount(value.toAmount(), currency.name))
 
         @JvmOverloads
-        fun setAmount(value: Byte, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
+        fun setAmount(value: Byte, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
             setAmount(Amount(value.toAmount(), currency.name))
 
-        fun setAmount(value: UByte, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
+        fun setAmount(value: UByte, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
             setAmount(Amount(value.toAmount(), currency.name))
 
-        fun setAmount(value: UInt, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
+        fun setAmount(value: UInt, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
             setAmount(Amount(value.toAmount(), currency.name))
 
-        fun setAmount(value: UShort, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
+        fun setAmount(value: UShort, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
             setAmount(Amount(value.toAmount(), currency.name))
 
-        fun setAmount(value: ULong, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
+        fun setAmount(value: ULong, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
             setAmount(Amount(value.toAmount(), currency.name))
 
         @JvmOverloads
-        fun setAmount(value: BigDecimal, currency: Currencies = Config.DEFAULT_CURRENCY): Builder =
+        fun setAmount(value: BigDecimal, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
             setAmount(Amount(value.toAmount(), currency.name))
 
-        fun description(description: String): Builder = apply { this.description = description }
+        fun description(description: String?): Builder = apply { this.description = description }
 
-        fun recipient(recipient: Recipient): Builder = apply { this.recipient = recipient }
+        fun recipient(recipient: Recipient?): Builder = apply { this.recipient = recipient }
 
         fun recipient(gatewayId: String): Builder = recipient(Recipient(gatewayId))
 
@@ -131,18 +131,29 @@ data class Payment(
 
         fun create(block: Builder.() -> Unit): Payment = apply(block).build()
 
-        fun clientIp(ip: String): Builder = apply { this.clientIp = ip }
+        fun clientIp(ip: String?): Builder = apply { this.clientIp = ip }
 
-        fun capture(capture: Boolean): Builder = apply { this.capture = capture }
+        fun transfers(transfers: List<Transfer>?): Builder = apply { this.transfers = transfers }
 
-        fun metadata(data: Metadata): Builder = apply { this.metaData = data }
+        fun transfers(vararg transfers: Transfer): Builder = transfers(transfers.toList())
 
-        fun merchantCustomerId(id: String): Builder = apply { this.merchantCustomerId = id }
+        fun capture(capture: Boolean?): Builder = apply { this.capture = capture }
+
+        fun metadata(data: Metadata?): Builder = apply { this.metaData = data }
+
+        fun merchantCustomerId(id: String?): Builder = apply { this.merchantCustomerId = id }
+
+        fun paymentMethodData(data: PaymentMethodData): Builder = apply { paymentMethodData = data }
+
+        fun airline(airline: Airline?): Builder = apply { this.airline = airline }
+
+        fun deal(deal: Deal?): Builder = apply { this.deal = deal }
 
         fun build(): Payment {
             when (amount) {
-              //  NULL_AMOUNT -> throw PaymentNotInitializedException("Amount for payment is not defined!")
-                else -> {/* do nothing */}
+                //  NULL_AMOUNT -> throw PaymentNotInitializedException("Amount for payment is not defined!")
+                else -> {/* do nothing */
+                }
             }
             return Payment(this)
         }
@@ -180,7 +191,36 @@ data class Airline(
     val bookingReference: String? = null,
     val passengers: List<Passenger>? = null,
     val legs: List<Leg>? = null
-)
+) {
+
+    private constructor(builder: Builder) : this(
+        ticketNumber = builder.ticketNumber,
+        bookingReference = builder.bookingReference,
+        passengers = builder.passengers,
+        legs = builder.legs
+    )
+
+    class Builder {
+        internal var ticketNumber: String? = null
+            private set
+        internal var bookingReference: String? = null
+            private set
+        internal var passengers: List<Passenger>? = null
+            private set
+        internal var legs: List<Leg>? = null
+            private set
+
+        fun ticketNumber(number: String?): Builder = apply { ticketNumber = number }
+
+        fun bookingReference(reference: String?): Builder = apply { bookingReference = reference }
+
+        fun passengers(passengers: List<Passenger>?): Builder = apply { this.passengers = passengers }
+
+        fun legs(legs: List<Leg>?): Builder = apply { this.legs = legs }
+
+        fun build(): Airline = Airline(this)
+    }
+}
 
 data class Leg(
     val departureAirport: String,

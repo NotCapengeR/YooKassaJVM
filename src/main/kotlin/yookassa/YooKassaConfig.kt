@@ -2,7 +2,7 @@ package yookassa
 
 import yookassa.models.shared.Currencies
 
-object Config {
+object YooKassaConfig {
     var DEFAULT_CURRENCY: Currencies = Currencies.USD
         private set
 
