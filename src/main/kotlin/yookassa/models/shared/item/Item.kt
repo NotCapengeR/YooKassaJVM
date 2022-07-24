@@ -106,7 +106,58 @@ data class MarkCodeInfo(
     val fur: String? = null,
     val egais20: String? = null,
     val egais30: String? = null
-)
+) {
+
+    private constructor(builder: Builder) : this(
+        markCodeRaw = builder.markCodeRaw,
+        unknown = builder.unknown,
+        ean8 = builder.ean8,
+        ean13 = builder.ean13,
+        gs10 = builder.gs10,
+        gs1m = builder.gs1m,
+        fur = builder.fur,
+        short = builder.short,
+        egais20 = builder.egais20,
+        egais30 = builder.egais30
+    )
+
+    class Builder {
+        internal var markCodeRaw: String? = null
+        internal var unknown: String? = null
+        internal var ean8: String? = null
+        internal var ean13: String? = null
+        internal var gs10: String? = null
+        internal var gs1m: String? = null
+        internal var short: String? = null
+        internal var fur: String? = null
+        internal var egais20: String? = null
+        internal var egais30: String? = null
+
+        fun markCodeRav(markCodeRav: String?): Builder = apply { this.markCodeRaw = markCodeRav }
+
+        fun unknown(unknown: String?): Builder = apply { this.unknown = unknown }
+
+        fun ean8(ean8: String?): Builder = apply { this.ean8 = ean8 }
+
+        fun ean13(ean13: String?): Builder = apply { this.ean13 = ean13 }
+
+        fun gs10(gs10: String?): Builder = apply { this.gs10 = gs10 }
+
+        fun gs1m(gs1m: String?): Builder = apply { this.gs1m = gs1m }
+
+        fun short(short: String?): Builder = apply { this.short = short }
+
+        fun fur(fur: String?): Builder = apply { this.fur = fur }
+
+        fun egais20(egais20: String?): Builder = apply { this.egais20 = egais20 }
+
+        fun egais30(egais30: String?): Builder = apply { this.egais30 = egais30 }
+
+        fun build(): MarkCodeInfo = MarkCodeInfo(this)
+
+
+    }
+}
 
 data class PaymentSubjectIndustryDetails(
     val federalId: String,
