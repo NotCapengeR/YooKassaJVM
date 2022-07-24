@@ -1,6 +1,6 @@
 package yookassa.models
 
-data class Amount(val value: String, val currency: String)
+class Amount(val value: String, val currency: String)
 
 
 sealed class VatData(val type: String) {

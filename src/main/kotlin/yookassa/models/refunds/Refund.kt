@@ -1,7 +1,7 @@
 package yookassa.models.refunds
 
 import yookassa.models.Amount
-import yookassa.models.Currencie
+import yookassa.models.Currency
 import yookassa.models.Receipt
 import yookassa.models.toAmount
 
@@ -32,14 +32,14 @@ data class Refund(
         var deal: Deal? = null
 
         fun paymentId(value: String): Builder = apply { this.paymentId = value }
-        fun amount(value: Double, currency: Currencie): Builder =
+        fun amount(value: Double, currency: Currency): Builder =
             apply { this.amount = Amount(value.toAmount(), currency.name) }
 
         fun description(value: String): Builder = apply { this.description = value }
         fun receipt(value: Receipt): Builder = apply { this.receipt = value }
         fun sources(vararg value: Source): Builder = apply { this.sources = value.toList() }
-        fun deal(vararg amount: Pair<Double, Currencie>): Builder = apply {
-            this.deal = Deal(amount.map { RefundSettlement(amount = Amount(it.first.toAmount(), it.second.name)) })
+        fun deal(vararg amount: Amount): Builder = apply {
+            this.deal = Deal(amount.map { RefundSettlement(amount = it) })
         }
 
         fun build() = Refund(this)

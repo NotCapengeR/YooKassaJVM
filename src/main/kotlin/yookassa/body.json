@@ -1,36 +1,64 @@
 {
+  "paymentId": "paymentId",
   "amount": {
-    "value": "1000,33",
-    "currency": "RUB"
+    "value": "22,30",
+    "currency": "USD"
   },
-  "description": "Hueta",
+  "description": "description",
   "receipt": {
     "items": [
       {
         "amount": {
-          "value": "10.0",
+          "value": "12,00",
           "currency": "RUB"
         },
         "description": "description",
-        "quantity": 2,
-        "vatCode": 1
+        "quantity": 10,
+        "vatCode": 2
       },
       {
         "amount": {
-          "value": "20.0",
+          "value": "12,00",
           "currency": "RUB"
         },
-        "description": "abalbal",
-        "quantity": 5,
-        "vatCode": 1
+        "description": "description",
+        "quantity": 10,
+        "vatCode": 2
       }
     ]
   },
-  "recipient": {
-    "gatewayId": "recipient"
-  },
-  "confirmation": {
-    "returnUrl": "https://.......com",
-    "type": "redirect"
+  "sources": [
+    {
+      "accountId": "acc id 1",
+      "amount": {
+        "value": "10,00",
+        "currency": "RUB"
+      }
+    },
+    {
+      "accountId": "acc id 2",
+      "amount": {
+        "value": "20,00",
+        "currency": "RUB"
+      }
+    }
+  ],
+  "deal": {
+    "refundSettlements": [
+      {
+        "type": "payout",
+        "amount": {
+          "value": "19,00",
+          "currency": "USD"
+        }
+      },
+      {
+        "type": "payout",
+        "amount": {
+          "value": "22,12",
+          "currency": "RUB"
+        }
+      }
+    ]
   }
 }

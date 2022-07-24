@@ -7,3 +7,8 @@ fun Double.toAmount()  : String {
     val format = DecimalFormat("#.00")
     return format.format(this).replace(".", ",")
 }
+
+fun amount(value: Double, currency: Currency): Amount {
+    if (value < 0) throw RuntimeException("Amount can't has negative value")
+    return Amount(value.toAmount(), currency.name)
+}

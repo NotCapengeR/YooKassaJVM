@@ -2,25 +2,47 @@ package yookassa
 
 import com.google.gson.Gson
 import yookassa.models.*
-import yookassa.models.item.CountryOfOriginMode
+import yookassa.models.Currency.*
 import yookassa.models.item.Item
-import yookassa.models.item.Measure
 import yookassa.models.item.VatCode
+import yookassa.models.refunds.Refund
+import yookassa.models.refunds.Source
 
 fun main() {
 
     val gson = Gson()
 
-    val item = Item.Builder()
-        .amount(10.0, Currencie.RUB)
+    val refund = Refund.Builder()
+        .paymentId("paymentId")
+        .amount(22.3, USD)
         .description("description")
-        .quantity(2)
-        .vatCode(VatCode.VAT_10)
-        .measure(Measure.PIECE)
-        .excise("blblbl")
-        .countyOfOriginMode(CountryOfOriginMode.RU)
-        .markQuantity(1, 20)
+        .receipt(
+            Receipt(
+                listOf(
+                    Item.Builder()
+                        .amount(12.00, RUB)
+                        .description("description")
+                        .quantity(10)
+                        .vatCode(VatCode.VAT_0)
+                        .build(),
+                    Item.Builder()
+                        .amount(12.00, RUB)
+                        .description("description")
+                        .vatCode(VatCode.VAT_0)
+                        .quantity(10)
+                        .build()
+                )
+            )
+        )
+        .sources(
+            Source("acc id 1", amount(20.99, RUB)),
+            Source("acc id 2", amount(199.99, EUR)),
+        )
+        .deal(
+            amount(15.99, EUR),
+            amount(22.99, USD)
+        )
         .build()
 
-    println(gson.toJson(item))
+    println(gson.toJson(refund))
 }

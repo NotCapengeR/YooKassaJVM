@@ -1,7 +1,7 @@
 package yookassa.models.item
 
 import yookassa.models.Amount
-import yookassa.models.Currencie
+import yookassa.models.Currency
 import yookassa.models.toAmount
 import kotlin.properties.Delegates
 
@@ -57,7 +57,7 @@ data class Item(
         var markMode: String? = null
         var paymentSubjectIndustryDetails: List<PaymentSubjectIndustryDetails>? = null
 
-        fun amount(value: Double, currency: Currencie): Builder =
+        fun amount(value: Double, currency: Currency): Builder =
             apply { this.amount = Amount(value.toAmount(), currency.name) }
 
         fun description(value: String): Builder = apply { this.description = value }
