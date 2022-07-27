@@ -1,6 +1,6 @@
 package yookassa.models.shared
 
 enum class TaxSystemCode(val code: Int) {
-    NoVAT(1), VATat0(2), VATat10(3), VATIsWaitingForItems20(4),
-    VATCheckAtTheEstimatedRate10110(5), VATCheckAtTheEstimatedRate20120(6),
+    NO_VAT(1), VAT_0(2), VAT_10(3), VAT_WAITING_FOR_ITEMS20(4),
+    VAT_CHECK_ESTIMATED_RATE10110(5), VAT_CHECK_ESTIMATED_RATE20120(6),
 }

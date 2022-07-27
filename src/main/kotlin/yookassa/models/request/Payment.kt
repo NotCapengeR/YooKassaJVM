@@ -258,13 +258,13 @@ sealed class Confirmation(val type: String) {
     ) : Confirmation(REDIRECT)
 
 
-    private companion object {
+    companion object {
         // Confirmation types
-        private const val EMBEDDED: String = "embedded"
-        private const val EXTERNAL: String = "external"
-        private const val MOBILE_APPLICATION: String = "mobile_application"
-        private const val QR_CODE: String = "qr"
-        private const val REDIRECT: String = "redirect"
+        const val EMBEDDED: String = "embedded"
+        const val EXTERNAL: String = "external"
+        const val MOBILE_APPLICATION: String = "mobile_application"
+        const val QR_CODE: String = "qr"
+        const val REDIRECT: String = "redirect"
 
     }
 }

@@ -1,8 +1,6 @@
 package yookassa.models.shared
 
 import yookassa.YooKassaConfig
-import yookassa.models.request.Payment
-import yookassa.models.shared.Metadata
 import yookassa.utils.toAmount
 import java.math.BigDecimal
 
@@ -17,10 +15,10 @@ sealed class VatData(val type: String) {
 
     data class Mixed(val amount: Amount) : VatData(MIXED)
 
-    private companion object {
-        private const val UNTAXED: String = "untaxed"
-        private const val CALCULATED: String = "calculated"
-        private const val MIXED: String = "mixed"
+    companion object {
+        const val UNTAXED: String = "untaxed"
+        const val CALCULATED: String = "calculated"
+        const val MIXED: String = "mixed"
     }
 }
 
@@ -143,8 +141,6 @@ data class Transfer(
         @JvmOverloads
         fun platformFeeAmount(value: BigDecimal, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
             platformFeeAmount(Amount(value.toAmount(), currency.name))
-
-
     }
 }
 

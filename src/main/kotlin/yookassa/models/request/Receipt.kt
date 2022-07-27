@@ -58,12 +58,14 @@ data class Receipt(
             email: String? = null,
             phone: String? = null
         ): Builder =
-            customer(Customer(
-                fullName,
-                inn,
-                email,
-                phone
-            ))
+            customer(
+                Customer(
+                    fullName,
+                    inn,
+                    email,
+                    phone
+                )
+            )
 
         fun recipientIndustryDetails(details: List<ReceiptIndustryDetails>?): Builder = apply {
             this.recipientIndustryDetails = details
@@ -91,7 +93,35 @@ data class Customer(
     val inn: Int? = null,
     val email: String? = null,
     val phone: String? = null
-)
+) {
+
+    private constructor(builder: Builder) : this(
+        fullName = builder.fullName,
+        inn = builder.inn,
+        email = builder.email,
+        phone = builder.phone
+    )
+    class Builder {
+        internal var fullName: String? = null
+            private set
+        internal var inn: Int? = null
+            private set
+        internal var email: String? = null
+            private set
+        internal var phone: String? = null
+            private set
+
+        fun fullName(name: String?): Builder = apply { fullName = name }
+
+        fun inn(inn: Int?): Builder = apply { this.inn = inn }
+
+        fun email(email: String?): Builder = apply { this.email = email }
+
+        fun phone(number: String?): Builder = apply { this.phone = number }
+
+        fun build(): Customer = Customer(this)
+    }
+}
 
 
 data class ReceiptIndustryDetails(
