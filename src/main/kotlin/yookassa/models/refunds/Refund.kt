@@ -24,21 +24,29 @@ data class Refund(
     )
 
     class Builder {
-        lateinit var paymentId: String
-        lateinit var amount: Amount
-        var description: String? = null
-        var receipt: Receipt? = null
-        var sources: List<Source>? = null
-        var deal: Deal? = null
+        internal lateinit var paymentId: String
+        internal lateinit var amount: Amount
+        internal var description: String? = null
+        internal var receipt: Receipt? = null
+        internal var sources: List<Source>? = null
+        internal var deal: Deal? = null
 
         fun paymentId(value: String): Builder = apply { this.paymentId = value }
-        fun amount(value: Double, currency: Currency): Builder =
-            apply { this.amount = Amount(value.toAmount(), currency.name) }
 
-        fun description(value: String): Builder = apply { this.description = value }
-        fun receipt(value: Receipt): Builder = apply { this.receipt = value }
-        fun sources(vararg value: Source): Builder = apply { this.sources = value.toList() }
-        fun deal(vararg amount: Amount): Builder = apply {
+        fun amount(value: Double, currency: Currency): Builder =
+            amount(Amount(value.toAmount(), currency.name))
+
+        fun amount(value: Amount): Builder = apply { this.amount = value }
+
+        fun description(value: String?): Builder = apply { this.description = value }
+        fun receipt(value: Receipt?): Builder = apply { this.receipt = value }
+        fun sources(vararg value: Source): Builder = sources(value.toList())
+
+        fun sources(value: List<Source>?): Builder = apply { this.sources = value }
+
+        fun deal(vararg amount: Amount): Builder = deal(amount.toList())
+
+        fun deal(amount: List<Amount>): Builder = apply {
             this.deal = Deal(amount.map { RefundSettlement(amount = it) })
         }
 

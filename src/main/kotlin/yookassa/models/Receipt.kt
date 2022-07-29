@@ -10,30 +10,25 @@ data class Receipt(
     val taxSystemCode: Int? = null,
     val recipientIndustryDetails: List<ReceiptIndustryDetails>? = null,
     val recipientOperationalDetails: RecipientOperationalDetails? = null
-) {
+)
 
-    data class Customer(
-        val fullName: String? = null,
-        val inn: Int? = null,
-        val email: String? = null,
-        val phone: String? = null
-    )
-
-
-    data class ReceiptIndustryDetails(
-        val federalId: String,
-        val documentDate: String,
-        val documentNumber: String,
-        val value: String
-    )
-
-    data class RecipientOperationalDetails(
-        val operationId: Int,
-        val value: String,
-        val createdAt: String
-    )
+data class Customer(
+    val fullName: String? = null,
+    val inn: Int? = null,
+    val email: String? = null,
+    val phone: String? = null
+)
 
 
+data class ReceiptIndustryDetails(
+    val federalId: String,
+    val documentDate: String,
+    val documentNumber: String,
+    val value: String
+)
 
-
-}
+data class RecipientOperationalDetails(
+    val operationId: Int,
+    val value: String,
+    val createdAt: String
+)
