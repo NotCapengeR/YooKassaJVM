@@ -27,10 +27,9 @@ fun main() {
 
     val item2 = item.copy(amount = Amount("300.0", Currencies.RUB.toString()), quantity = 5)
 
-    val payment = Payment.Builder()
+    val payment = Payment.Builder(103.23)
         .description("Hueta")
         .paymentMethodData(PaymentMethodData.SBP)
-        .setAmount(103.23)
         .recipient("13232312132")
         .merchantCustomerId("1313212")
         .confirmation(Confirmation.Redirect("https://.../"))

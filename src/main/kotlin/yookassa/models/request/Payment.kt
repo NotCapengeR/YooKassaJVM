@@ -43,9 +43,9 @@ data class Payment(
         merchantCustomerId = builder.merchantCustomerId
     )
 
-    class Builder {
-        internal lateinit var amount: Amount
-            private set
+    class Builder(
+        internal val amount: Amount
+    ) {
         internal var description: String? = null
             private set
         internal var receipt: Receipt? = null
@@ -77,47 +77,51 @@ data class Payment(
         internal var merchantCustomerId: String? = null
             private set
 
-        fun setAmount(amount: Amount): Builder = apply { this.amount = amount }
+        @JvmOverloads
+        public constructor(
+            value: Double,
+            currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY
+        ) : this(Amount(value.toAmount(), currency.name))
 
         @JvmOverloads
-        fun setAmount(value: Double, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
-            setAmount(Amount(value.toAmount(), currency.name))
+        public constructor(
+            value: Float,
+            currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY
+        ) : this(Amount(value.toAmount(), currency.name))
+
 
         @JvmOverloads
-        fun setAmount(value: Float, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
-            setAmount(Amount(value.toAmount(), currency.name))
+        public constructor(
+            value: Short,
+            currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY
+        ) : this(Amount(value.toAmount(), currency.name))
 
         @JvmOverloads
-        fun setAmount(value: Int, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
-            setAmount(Amount(value.toAmount(), currency.name))
+        public constructor(
+            value: Int,
+            currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY
+        ) : this(Amount(value.toAmount(), currency.name))
+
 
         @JvmOverloads
-        fun setAmount(value: Long, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
-            setAmount(Amount(value.toAmount(), currency.name))
+        public constructor(
+            value: Byte,
+            currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY
+        ) : this(Amount(value.toAmount(), currency.name))
+
 
         @JvmOverloads
-        fun setAmount(value: Short, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
-            setAmount(Amount(value.toAmount(), currency.name))
+        public constructor(
+            value: Long,
+            currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY
+        ) : this(Amount(value.toAmount(), currency.name))
 
         @JvmOverloads
-        fun setAmount(value: Byte, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
-            setAmount(Amount(value.toAmount(), currency.name))
+        public constructor(
+            value: BigDecimal,
+            currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY
+        ) : this(Amount(value.toAmount(), currency.name))
 
-        fun setAmount(value: UByte, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
-            setAmount(Amount(value.toAmount(), currency.name))
-
-        fun setAmount(value: UInt, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
-            setAmount(Amount(value.toAmount(), currency.name))
-
-        fun setAmount(value: UShort, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
-            setAmount(Amount(value.toAmount(), currency.name))
-
-        fun setAmount(value: ULong, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
-            setAmount(Amount(value.toAmount(), currency.name))
-
-        @JvmOverloads
-        fun setAmount(value: BigDecimal, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
-            setAmount(Amount(value.toAmount(), currency.name))
 
         fun description(description: String?): Builder = apply { this.description = description }
 
@@ -214,9 +218,13 @@ data class Airline(
 
         fun bookingReference(reference: String?): Builder = apply { bookingReference = reference }
 
+        fun passengers(vararg passengers: Passenger): Builder = passengers(passengers.toList())
+
         fun passengers(passengers: List<Passenger>?): Builder = apply { this.passengers = passengers }
 
         fun legs(legs: List<Leg>?): Builder = apply { this.legs = legs }
+
+        fun legs(vararg legs: Leg): Builder = legs(legs.toList())
 
         fun build(): Airline = Airline(this)
     }
