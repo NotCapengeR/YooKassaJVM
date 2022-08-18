@@ -5,10 +5,10 @@ import yookassa.models.shared.*
 import yookassa.utils.toAmount
 import java.math.BigDecimal
 
-data class Payment(
+data class PaymentRequest(
     val amount: Amount,
     val description: String? = null,
-    val receipt: Receipt? = null,
+    val receipt: ReceiptRequest? = null,
     val recipient: Recipient? = null,
     val paymentToken: String? = null,
     val paymentMethodId: String? = null,
@@ -48,7 +48,7 @@ data class Payment(
     ) {
         internal var description: String? = null
             private set
-        internal var receipt: Receipt? = null
+        internal var receipt: ReceiptRequest? = null
             private set
         internal var recipient: Recipient? = null
             private set
@@ -129,11 +129,11 @@ data class Payment(
 
         fun recipient(gatewayId: String): Builder = recipient(Recipient(gatewayId))
 
-        fun receipt(receipt: Receipt?): Builder = apply { this.receipt = receipt }
+        fun receipt(receipt: ReceiptRequest?): Builder = apply { this.receipt = receipt }
 
         fun confirmation(confirmation: Confirmation?): Builder = apply { this.confirmation = confirmation }
 
-        fun create(block: Builder.() -> Builder): Payment {
+        fun create(block: Builder.() -> Builder): PaymentRequest {
             return this.block().build()
         }
 
@@ -155,17 +155,17 @@ data class Payment(
 
         fun deal(deal: Deal?): Builder = apply { this.deal = deal }
 
-        fun build(): Payment {
+        fun build(): PaymentRequest {
             when (amount) {
                 //  NULL_AMOUNT -> throw PaymentNotInitializedException("Amount for payment is not defined!")
                 else -> {/* do nothing */}
             }
-            return Payment(this)
+            return PaymentRequest(this)
         }
 
         private companion object {
             private val NULL_AMOUNT: Amount = Amount("null", "null")
-            private val NULL_PAYMENT: Payment = Payment(
+            private val NULL_PAYMENT: PaymentRequest = PaymentRequest(
                 amount = NULL_AMOUNT,
                 description = null,
                 receipt = null,
@@ -276,4 +276,46 @@ sealed class Confirmation(val type: String) {
         const val REDIRECT: String = "redirect"
 
     }
+}
+
+sealed class PaymentMethodData(val type: String) {
+
+    data class AlfaClick(val login: String? = null) : PaymentMethodData(ALFA_CLICK)
+
+    data class MobileBalance(val phone: String) : PaymentMethodData(MOBILE_BALANCE)
+
+    data class BankCard(val card: Card? = null) : PaymentMethodData(BANK_CARD)
+
+    object Installments : PaymentMethodData(INSTALLMENTS)
+
+    data class Cash(val phone: String? = null) : PaymentMethodData(CASH)
+
+    object SBP : PaymentMethodData(SBP_PAYMENT_TYPE)
+
+    data class SberBankBusinessOnline(val paymentPurpose: String, val vatData: VatData) :
+        PaymentMethodData(SBERBANK_BUSINESS_ONLINE)
+
+    object Tinkoff : PaymentMethodData(TINFOFF_BANK)
+
+    object YooMoney : PaymentMethodData(YOO_MONEY)
+
+    data class QIWI(val phone: String? = null) : PaymentMethodData(QIWI_METHOD_DATA)
+
+    data class SberPay(val phone: String? = null) : PaymentMethodData(SBERPAY)
+
+    private companion object {
+        //  Payment method data types
+        private const val ALFA_CLICK: String = "alfabank"
+        private const val MOBILE_BALANCE: String = "mobile_balance"
+        private const val BANK_CARD: String = "bank_card"
+        private const val INSTALLMENTS: String = "installments"
+        private const val CASH: String = "cash"
+        private const val SBP_PAYMENT_TYPE: String = "sbp"
+        private const val SBERBANK_BUSINESS_ONLINE: String = "b2b_sberbank"
+        private const val TINFOFF_BANK: String = "tinkoff_bank"
+        private const val YOO_MONEY: String = "yoo_money"
+        private const val QIWI_METHOD_DATA: String = "qiwi"
+        private const val SBERPAY: String = "sberbank"
+    }
+
 }

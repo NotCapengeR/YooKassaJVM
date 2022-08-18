@@ -3,7 +3,7 @@ package yookassa.models.request
 import yookassa.models.shared.TaxSystemCode
 import yookassa.models.shared.item.Item
 
-data class Receipt(
+data class ReceiptRequest(
     val items: List<Item>,
     val customer: Customer? = null,
     val phone: String? = null,
@@ -84,7 +84,7 @@ data class Receipt(
             createdAt: String
         ): Builder = recipientOperationalDetails(RecipientOperationalDetails(operationId, value, createdAt))
 
-        fun build(): Receipt = Receipt(this)
+        fun build(): ReceiptRequest = ReceiptRequest(this)
     }
 }
 

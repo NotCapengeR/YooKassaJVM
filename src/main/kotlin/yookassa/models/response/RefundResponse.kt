@@ -1,7 +1,9 @@
-package yookassa.models.shared.refunds
+package yookassa.models.response
 
 import yookassa.models.shared.Amount
 import yookassa.models.shared.CancellationDetails
+import yookassa.models.shared.refunds.Deal
+import yookassa.models.shared.refunds.Source
 
 data class RefundResponse(
     val id: String,

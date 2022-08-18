@@ -9,7 +9,7 @@ import java.math.BigDecimal
 
 data class ConfirmRequest(
     val amount: Amount,
-    val receipt: Receipt? = null,
+    val receipt: ReceiptRequest? = null,
     val airline: Airline? = null,
     val transfers: List<Transfer>? = null,
     val deal: Deal? = null
@@ -26,7 +26,7 @@ data class ConfirmRequest(
     class Builder(
         internal val amount: Amount
     ) {
-        internal var receipt: Receipt? = null
+        internal var receipt: ReceiptRequest? = null
             private set
         internal var airline: Airline? = null
             private set
@@ -81,7 +81,7 @@ data class ConfirmRequest(
             currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY
         ) : this(Amount(value.toAmount(), currency.name))
 
-        fun receipt(receipt: Receipt?): Builder = apply { this.receipt = receipt }
+        fun receipt(receipt: ReceiptRequest?): Builder = apply { this.receipt = receipt }
 
         fun airline(airline: Airline?): Builder = apply { this.airline = airline }
 

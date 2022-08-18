@@ -1,15 +1,17 @@
-package yookassa.models.shared.refunds
+package yookassa.models.request
 
-import yookassa.models.request.Receipt
 import yookassa.models.shared.Amount
 import yookassa.models.shared.Currencies
+import yookassa.models.shared.refunds.Deal
+import yookassa.models.shared.refunds.RefundSettlement
+import yookassa.models.shared.refunds.Source
 import yookassa.utils.toAmount
 
-data class Refund(
+data class RefundRequest(
     val paymentId: String,
     val amount: Amount,
     val description: String? = null,
-    val receipt: Receipt? = null,
+    val receipt: ReceiptRequest? = null,
     val sources: List<Source>? = null,
     val deal: Deal? = null,
 ) {
@@ -27,7 +29,7 @@ data class Refund(
         internal lateinit var paymentId: String
         internal lateinit var amount: Amount
         internal var description: String? = null
-        internal var receipt: Receipt? = null
+        internal var receipt: ReceiptRequest? = null
         internal var sources: List<Source>? = null
         internal var deal: Deal? = null
 
@@ -39,7 +41,7 @@ data class Refund(
         fun amount(value: Amount): Builder = apply { this.amount = value }
 
         fun description(value: String?): Builder = apply { this.description = value }
-        fun receipt(value: Receipt?): Builder = apply { this.receipt = value }
+        fun receipt(value: ReceiptRequest?): Builder = apply { this.receipt = value }
         fun sources(vararg value: Source): Builder = sources(value.toList())
 
         fun sources(value: List<Source>?): Builder = apply { this.sources = value }
@@ -50,6 +52,6 @@ data class Refund(
             this.deal = Deal(amount.map { RefundSettlement(amount = it) })
         }
 
-        fun build() = Refund(this)
+        fun build() = RefundRequest(this)
     }
 }
