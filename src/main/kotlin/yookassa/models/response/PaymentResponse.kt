@@ -27,17 +27,17 @@ data class PaymentResponse(
     val authorizationDetails: AuthorizationDetails? = null,
     val transfers: List<Transfer>? = null,
     val merchantCustomerId: String? = null
-)
+): java.io.Serializable
 
-data class Recipient(val accountId: String, val gatewayId: String)
+data class Recipient(val accountId: String, val gatewayId: String): java.io.Serializable
 
 data class AuthorizationDetails(
     val rrn: String? = null,
     val authCode: String? = null,
     val threeDSecure: ThreeDSecure,
-)
+): java.io.Serializable
 
-data class ThreeDSecure(val applied: Boolean)
+data class ThreeDSecure(val applied: Boolean): java.io.Serializable
 
 data class PayoutBankDetails(
     val fullName: String,
@@ -49,9 +49,9 @@ data class PayoutBankDetails(
     val bankBik: String,
     val account: String,
     val kpp: String? = null
-)
+): java.io.Serializable
 
-sealed class Confirmation(val type: String) {
+sealed class Confirmation(val type: String): java.io.Serializable {
 
     data class Embedded(val token: String) : Confirmation(EMBEDDED)
 

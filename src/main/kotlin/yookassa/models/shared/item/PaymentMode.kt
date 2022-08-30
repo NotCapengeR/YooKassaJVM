@@ -1,6 +1,6 @@
 package yookassa.models.shared.item
 
-enum class PaymentMode(val value: String) {
+enum class PaymentMode(val value: String) : java.io.Serializable {
     FULL_PREPAYMENT("full_prepayment"),
     PARTIAL_PREPAYMENT("partial_prepayment"),
     ADVANCE("advance"),

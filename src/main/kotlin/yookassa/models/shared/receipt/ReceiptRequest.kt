@@ -14,7 +14,7 @@ data class ReceiptRequest(
     val fiscalProviderId: String? = null,
     val requestedAt: String? = null,
     val items: List<ReceiptItem>? = null
-) {
+): java.io.Serializable {
 
     private constructor(builder: Builder) : this(
         id = builder.id,
@@ -78,7 +78,7 @@ data class ReceiptRequest(
     }
 }
 
-enum class ReceiptType(val type: String) {
+enum class ReceiptType(val type: String) : java.io.Serializable {
     Payment("payment"), Refund("refund")
 }
 

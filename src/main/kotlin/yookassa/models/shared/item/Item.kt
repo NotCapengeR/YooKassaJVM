@@ -22,7 +22,7 @@ data class Item(
     val markCodeInfo: MarkCodeInfo? = null,
     val markMode: String? = null,
     val paymentSubjectIndustryDetails: List<PaymentSubjectIndustryDetails>? = null
-) {
+): java.io.Serializable {
     private constructor(builder: Builder) : this(
         amount = builder.amount,
         description = builder.description,
@@ -60,7 +60,10 @@ data class Item(
 
         @JvmOverloads
         fun amount(value: Double, currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY): Builder =
-            apply { this.amount = Amount(value.toAmount(), currency.name) }
+            amount(Amount(value.toAmount(), currency.name))
+
+        fun amount(amount: Amount): Builder =
+            apply { this.amount = amount }
 
         fun description(value: String): Builder = apply { this.description = value }
         fun quantity(value: Int): Builder = apply { this.quantity = value }
@@ -97,7 +100,7 @@ data class Item(
     }
 }
 
-data class MarkQuantity(val numerator: Int, val denominator: Int)
+data class MarkQuantity(val numerator: Int, val denominator: Int): java.io.Serializable
 
 data class MarkCodeInfo(
     val markCodeRaw: String? = null,
@@ -110,7 +113,7 @@ data class MarkCodeInfo(
     val fur: String? = null,
     val egais20: String? = null,
     val egais30: String? = null
-) {
+): java.io.Serializable {
 
     private constructor(builder: Builder) : this(
         markCodeRaw = builder.markCodeRaw,
@@ -168,4 +171,4 @@ data class PaymentSubjectIndustryDetails(
     val documentDate: String,
     val documentNumber: String,
     val value: String
-)
+): java.io.Serializable

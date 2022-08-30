@@ -1,6 +1,6 @@
 package yookassa.models.shared.item
 
-enum class PaymentSubject(val value: String) {
+enum class PaymentSubject(val value: String) : java.io.Serializable {
     COMMODITY("commodity"),
     EXCISE("excise"),
     JOB("job"),

@@ -22,7 +22,7 @@ data class PaymentRequest(
     val transfers: List<Transfer>? = null,
     val deal: Deal? = null,
     val merchantCustomerId: String? = null
-) {
+): java.io.Serializable {
 
     private constructor(builder: Builder) : this(
         amount = builder.amount,
@@ -78,7 +78,7 @@ data class PaymentRequest(
             private set
 
         @JvmOverloads
-        public constructor(
+        constructor(
             value: Double,
             currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY
         ) : this(Amount(value.toAmount(), currency.name))
@@ -189,14 +189,14 @@ data class PaymentRequest(
 
 }
 
-data class Recipient(val gatewayId: String)
+data class Recipient(val gatewayId: String): java.io.Serializable
 
 data class Airline(
     val ticketNumber: String? = null,
     val bookingReference: String? = null,
     val passengers: List<Passenger>? = null,
     val legs: List<Leg>? = null
-) {
+): java.io.Serializable {
 
     private constructor(builder: Builder) : this(
         ticketNumber = builder.ticketNumber,
@@ -236,11 +236,11 @@ data class Leg(
     val destinationAirport: String,
     val departureDate: String,
     val carriedCode: String? = null
-)
+): java.io.Serializable
 
 data class Passenger(
     val firstname: String, val lastname: String
-)
+): java.io.Serializable
 
 data class Card(
     val number: String,
@@ -248,9 +248,9 @@ data class Card(
     val expiryMonth: String,
     val csc: String? = null,
     val cardholder: String? = null
-)
+): java.io.Serializable
 
-sealed class Confirmation(val type: String) {
+sealed class Confirmation(val type: String): java.io.Serializable {
 
     data class Embedded(val locale: String? = null) : Confirmation(EMBEDDED)
 
@@ -278,7 +278,7 @@ sealed class Confirmation(val type: String) {
     }
 }
 
-sealed class PaymentMethodData(val type: String) {
+sealed class PaymentMethodData(val type: String): java.io.Serializable {
 
     data class AlfaClick(val login: String? = null) : PaymentMethodData(ALFA_CLICK)
 
@@ -303,19 +303,19 @@ sealed class PaymentMethodData(val type: String) {
 
     data class SberPay(val phone: String? = null) : PaymentMethodData(SBERPAY)
 
-    private companion object {
+    companion object {
         //  Payment method data types
-        private const val ALFA_CLICK: String = "alfabank"
-        private const val MOBILE_BALANCE: String = "mobile_balance"
-        private const val BANK_CARD: String = "bank_card"
-        private const val INSTALLMENTS: String = "installments"
-        private const val CASH: String = "cash"
-        private const val SBP_PAYMENT_TYPE: String = "sbp"
-        private const val SBERBANK_BUSINESS_ONLINE: String = "b2b_sberbank"
-        private const val TINFOFF_BANK: String = "tinkoff_bank"
-        private const val YOO_MONEY: String = "yoo_money"
-        private const val QIWI_METHOD_DATA: String = "qiwi"
-        private const val SBERPAY: String = "sberbank"
+        const val ALFA_CLICK: String = "alfabank"
+        const val MOBILE_BALANCE: String = "mobile_balance"
+        const val BANK_CARD: String = "bank_card"
+        const val INSTALLMENTS: String = "installments"
+        const val CASH: String = "cash"
+        const val SBP_PAYMENT_TYPE: String = "sbp"
+        const val SBERBANK_BUSINESS_ONLINE: String = "b2b_sberbank"
+        const val TINFOFF_BANK: String = "tinkoff_bank"
+        const val YOO_MONEY: String = "yoo_money"
+        const val QIWI_METHOD_DATA: String = "qiwi"
+        const val SBERPAY: String = "sberbank"
     }
 
 }

@@ -2,30 +2,29 @@ package yookassa
 
 import com.google.gson.Gson
 import yookassa.models.request.Confirmation
-import yookassa.models.request.PaymentRequest
 import yookassa.models.request.PaymentMethodData
+import yookassa.models.request.PaymentRequest
 import yookassa.models.request.ReceiptRequest
 import yookassa.models.shared.Amount
-import yookassa.models.shared.item.Item
-import yookassa.models.shared.item.VatCode
 import yookassa.models.shared.Currencies
+import yookassa.models.shared.item.Item
 import yookassa.models.shared.item.Measure
+import yookassa.models.shared.item.VatCode
 
 fun main() {
-
     val gson = Gson()
-
     YooKassaConfig.setDefaultCurrency(Currencies.RUB)
 
+
     val item = Item.Builder()
-        .amount(10.0, Currencies.RUB)
+        .amount(Amount.fromValue(200))
         .description("description")
         .quantity(2)
         .measure(Measure.CENTIMETER)
         .vatCode(VatCode.VAT_10)
         .build()
 
-    val item2 = item.copy(amount = Amount("300.0", Currencies.RUB.toString()), quantity = 5)
+    val item2 = item.copy(amount = Amount.fromValue(300.4), quantity = 5)
 
     val payment = PaymentRequest.Builder(103.23)
         .description("Hueta")

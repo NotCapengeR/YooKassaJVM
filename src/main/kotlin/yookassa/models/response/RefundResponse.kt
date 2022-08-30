@@ -16,4 +16,4 @@ data class RefundResponse(
     val description: String? = null,
     val sources: List<Source>? = null,
     val deal: Deal
-)
+): java.io.Serializable

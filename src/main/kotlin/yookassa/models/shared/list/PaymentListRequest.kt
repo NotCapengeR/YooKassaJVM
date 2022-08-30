@@ -16,7 +16,7 @@ data class PaymentListRequest(
     val paymentMethod: PaymentMethod? = null,
     val status: PaymentStatus? = null,
     val cursor: String? = null
-) {
+): java.io.Serializable {
 
     private constructor(builder: Builder) : this(
         limit = builder.limit,

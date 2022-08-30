@@ -17,10 +17,9 @@ data class PayoutRequest(
     val receiptData: ReceiptData? = null,
     val personalData: List<PersonalData>? = null,
     val metadata: Metadata? = null,
-) {
-}
+): java.io.Serializable
 
-sealed class PayoutDestinationData(val type: String) {
+sealed class PayoutDestinationData(val type: String): java.io.Serializable {
 
     data class BankCard(
         val card: PayoutCard
@@ -44,9 +43,9 @@ sealed class PayoutDestinationData(val type: String) {
 
 data class PersonalData(
     val id: String
-)
+): java.io.Serializable
 
 data class ReceiptData(
     val serviceName: String,
     val amount: Amount? = null
-)
+): java.io.Serializable

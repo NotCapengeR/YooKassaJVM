@@ -13,7 +13,7 @@ data class ConfirmRequest(
     val airline: Airline? = null,
     val transfers: List<Transfer>? = null,
     val deal: Deal? = null
-) {
+): java.io.Serializable {
 
     private constructor(builder: Builder) : this(
         amount = builder.amount,
@@ -99,4 +99,4 @@ data class Transfer @JvmOverloads constructor(
     val accountId: String,
     val amount: Amount,
     val platformFeeAmount: Amount? = null,
-)
+): java.io.Serializable

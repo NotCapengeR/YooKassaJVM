@@ -2,7 +2,7 @@ package yookassa.models.response
 
 import yookassa.models.shared.VatData
 
-sealed class PaymentMethod(val type: String) {
+sealed class PaymentMethod(val type: String): java.io.Serializable {
 
     data class AlfaClick(
         val id: String,

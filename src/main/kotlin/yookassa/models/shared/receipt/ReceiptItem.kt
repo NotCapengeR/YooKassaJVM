@@ -25,7 +25,7 @@ data class ReceiptItem(
     val markCodeInfo: MarkCodeInfo? = null,
     val markMode: String? = null,
     val paymentSubjectIndustryDetails: List<PaymentSubjectIndustryDetails>? = null
-) {
+): java.io.Serializable {
     private constructor(builder: Builder) : this(
         amount = builder.amount,
         description = builder.description,

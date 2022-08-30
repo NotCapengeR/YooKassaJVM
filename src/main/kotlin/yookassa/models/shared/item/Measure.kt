@@ -1,6 +1,6 @@
 package yookassa.models.shared.item
 
-enum class Measure(val value: String) {
+enum class Measure(val value: String) : java.io.Serializable {
     PIECE("piece"),
     GRAM("gram"),
     KILOGRAM("kilogram"),

@@ -4,10 +4,7 @@ import yookassa.YooKassaConfig
 import yookassa.utils.toAmount
 import java.math.BigDecimal
 
-data class Amount(val value: String, val currency: String)
-
-
-sealed class VatData(val type: String) {
+sealed class VatData(val type: String): java.io.Serializable {
 
     object Untaxed : VatData(UNTAXED)
 
@@ -28,7 +25,7 @@ data class Transfer(
     val platformFeeAmount: Amount? = null,
     val description: String? = null,
     val metaData: Metadata? = null
-) {
+): java.io.Serializable {
 
     private constructor(builder: Builder) : this(
         accountId = builder.accountId,
@@ -147,16 +144,16 @@ data class Transfer(
 data class CancellationDetails(
     val party: String,
     val reason: String,
-)
+): java.io.Serializable
 
 data class Deal(
     val id: String,
     val settlements: List<Settlement>
-)
+): java.io.Serializable
 
 data class Settlement(
     val type: String,
     val amount: Amount,
-)
+) : java.io.Serializable
 
 typealias Metadata = Map<String, String>

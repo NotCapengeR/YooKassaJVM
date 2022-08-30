@@ -11,7 +11,7 @@ data class ReceiptRequest(
     val taxSystemCode: Int? = null,
     val recipientIndustryDetails: List<ReceiptIndustryDetails>? = null,
     val recipientOperationalDetails: RecipientOperationalDetails? = null
-) {
+): java.io.Serializable {
 
     private constructor(builder: Builder) : this(
         items = builder.items,
@@ -93,7 +93,7 @@ data class Customer(
     val inn: Int? = null,
     val email: String? = null,
     val phone: String? = null
-) {
+): java.io.Serializable {
 
     private constructor(builder: Builder) : this(
         fullName = builder.fullName,

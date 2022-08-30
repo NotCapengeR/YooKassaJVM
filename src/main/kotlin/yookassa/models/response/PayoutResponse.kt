@@ -20,7 +20,7 @@ data class PayoutResponse(
     val test: Boolean
 )
 
-sealed class PayoutDestination(val type: String) {
+sealed class PayoutDestination(val type: String): java.io.Serializable {
 
     data class BankCard(
         val card: PayoutCard
@@ -50,20 +50,20 @@ data class PayoutCard(
     val cardType: CardType,
     val issuerCountry: String? = null,
     val issuerName: String? = null
-)
+): java.io.Serializable
 
-enum class CardType {
+enum class CardType : java.io.Serializable {
     MasterCard, Visa, Mir, UnionPay, JCB, AmericanExpress, DinersClub, DiscoverCard, InstaPayment, InstaPaymentTM,
     Laser, Dankort, Solo, Switch, Unknown
 }
 
-data class PayoutDeal(val id: String)
+data class PayoutDeal(val id: String): java.io.Serializable
 
-data class SelfEmployed(val id: String)
+data class SelfEmployed(val id: String): java.io.Serializable
 
 data class PayoutReceipt(
     val serviceName: String,
     val npdReceiptId: String? = null,
     val url: String? = null,
     val amount: Amount? = null
-)
+): java.io.Serializable

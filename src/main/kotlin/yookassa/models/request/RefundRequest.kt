@@ -14,7 +14,7 @@ data class RefundRequest(
     val receipt: ReceiptRequest? = null,
     val sources: List<Source>? = null,
     val deal: Deal? = null,
-) {
+): java.io.Serializable {
 
     private constructor(builder: Builder) : this(
         paymentId = builder.paymentId,
