@@ -55,7 +55,7 @@ sealed class PayoutDestination : java.io.Serializable {
 
 @Serializable
 data class PayoutCard(
-    val BIN: String,
+    val bin: String,
     val last4: String,
     val cardType: CardType,
     val issuerCountry: String? = null,

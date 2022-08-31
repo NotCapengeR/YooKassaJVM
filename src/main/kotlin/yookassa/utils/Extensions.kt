@@ -6,50 +6,50 @@ import java.text.DecimalFormat
 
 private val FORMAT = DecimalFormat("0.00")
 
-fun Double.toAmount(): String {
+internal fun Double.toAmount(): String {
     return FORMAT.format(this).replace(".", ",")
 }
 
-fun Float.toAmount(): String {
+internal fun Float.toAmount(): String {
     return FORMAT.format(this).replace(".", ",")
 }
 
-fun Int.toAmount(): String {
+internal fun Int.toAmount(): String {
     return FORMAT.format(this).replace(".", ",")
 }
 
-fun Long.toAmount(): String {
+internal fun Long.toAmount(): String {
     return FORMAT.format(this).replace(".", ",")
 }
 
-fun Short.toAmount(): String {
+internal fun Short.toAmount(): String {
     return FORMAT.format(this).replace(".", ",")
 }
 
-fun Byte.toAmount(): String {
+internal fun Byte.toAmount(): String {
     return FORMAT.format(this).replace(".", ",")
 }
 
-fun BigDecimal.toAmount(): String {
+internal fun BigDecimal.toAmount(): String {
     return FORMAT.format(this.toDouble()).replace(".", ",")
 }
 
 val BigDecimal.TWO: BigDecimal
-get() = BigDecimal(BigInteger.TWO)
+    get() = BigDecimal(BigInteger.TWO)
 
 
-fun UInt.toAmount(): String {
+internal fun UInt.toAmount(): String {
     return FORMAT.format(this).replace(".", ",")
 }
 
-fun UShort.toAmount(): String {
+internal fun UShort.toAmount(): String {
     return FORMAT.format(this).replace(".", ",")
 }
 
-fun ULong.toAmount(): String {
+internal fun ULong.toAmount(): String {
     return FORMAT.format(this).replace(".", ",")
 }
 
-fun UByte.toAmount(): String {
+internal fun UByte.toAmount(): String {
     return FORMAT.format(this).replace(".", ",")
 }

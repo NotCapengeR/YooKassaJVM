@@ -136,10 +136,6 @@ data class PaymentRequest(
 
         fun confirmation(confirmation: Confirmation?): Builder = apply { this.confirmation = confirmation }
 
-        fun create(block: Builder.() -> Builder): PaymentRequest {
-            return this.block().build()
-        }
-
         fun clientIp(ip: String?): Builder = apply { this.clientIp = ip }
 
         fun transfers(transfers: List<Transfer>?): Builder = apply { this.transfers = transfers }
@@ -159,10 +155,6 @@ data class PaymentRequest(
         fun deal(deal: Deal?): Builder = apply { this.deal = deal }
 
         fun build(): PaymentRequest {
-            when (amount) {
-                //  NULL_AMOUNT -> throw PaymentNotInitializedException("Amount for payment is not defined!")
-                else -> {/* do nothing */}
-            }
             return PaymentRequest(this)
         }
 

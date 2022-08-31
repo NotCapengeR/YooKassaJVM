@@ -7,54 +7,57 @@ import kotlinx.serialization.Serializable
 import java.math.BigInteger
 
 @Serializable
-data class Amount(val value: String, val currency: String) : Comparable<Amount>, java.io.Serializable {
+data class Amount internal constructor(val value: String, val currency: String) :
+    Comparable<Amount>, java.io.Serializable {
+
+    constructor(pair: Pair<Double, Currencies>) : this(pair.first.toAmount(), pair.second.name)
 
     private val parsedValue: String
         get() = value.replace(',', '.').trim()
 
-    operator fun unaryMinus(): Amount = fromValue(-parsedValue.toDouble())
+    operator fun unaryMinus(): Amount = fromValue(-parsedValue.toDouble(), Currencies.valueOf(this.currency))
 
-    operator fun unaryPlus(): Amount = fromValue(+parsedValue.toDouble())
+    operator fun unaryPlus(): Amount = fromValue(+parsedValue.toDouble(), Currencies.valueOf(this.currency))
 
     operator fun not(): Boolean = !toBoolean()
 
-    operator fun inc(): Amount = fromValue(parsedValue.toDouble().inc())
+    operator fun inc(): Amount = fromValue(parsedValue.toDouble().inc(), Currencies.valueOf(this.currency))
 
-    operator fun dec(): Amount = fromValue(parsedValue.toDouble().dec())
+    operator fun dec(): Amount = fromValue(parsedValue.toDouble().dec(), Currencies.valueOf(this.currency))
 
     operator fun plus(other: Amount): Amount {
         if (!checkCurrency(other)) {
             throw IllegalArgumentException("Currencies in $this and $other must be equal!!!")
         }
-        return fromValue(this.toBigDecimal() + other.toBigDecimal())
+        return fromValue(this.toBigDecimal() + other.toBigDecimal(), Currencies.valueOf(this.currency))
     }
 
     operator fun minus(other: Amount): Amount {
         if (!checkCurrency(other)) {
             throw IllegalArgumentException("Currencies in $this and $other must be equal!!!")
         }
-        return fromValue(this.toBigDecimal() - other.toBigDecimal())
+        return fromValue(this.toBigDecimal() - other.toBigDecimal(), Currencies.valueOf(this.currency))
     }
 
     operator fun times(other: Amount): Amount {
         if (!checkCurrency(other)) {
             throw IllegalArgumentException("Currencies in $this and $other must be equal!!!")
         }
-        return fromValue(this.toBigDecimal() * other.toBigDecimal())
+        return fromValue(this.toBigDecimal() * other.toBigDecimal(), Currencies.valueOf(this.currency))
     }
 
     operator fun div(other: Amount): Amount {
         if (!checkCurrency(other)) {
             throw IllegalArgumentException("Currencies in $this and $other must be equal!!!")
         }
-        return fromValue(this.toBigDecimal() / other.toBigDecimal())
+        return fromValue(this.toBigDecimal() / other.toBigDecimal(), Currencies.valueOf(this.currency))
     }
 
     operator fun rem(other: Amount): Amount {
         if (!checkCurrency(other)) {
             throw IllegalArgumentException("Currencies in $this and $other must be equal!!!")
         }
-        return fromValue(this.toBigDecimal() % other.toBigDecimal())
+        return fromValue(this.toBigDecimal() % other.toBigDecimal(), Currencies.valueOf(this.currency))
     }
 
     operator fun rangeTo(other: Amount): ClosedFloatingPointRange<Amount> {
@@ -65,6 +68,9 @@ data class Amount(val value: String, val currency: String) : Comparable<Amount>,
     }
 
     override fun compareTo(other: Amount): Int {
+        if (!checkCurrency(other)) {
+            throw IllegalArgumentException("Currencies in $this and $other must be equal!!!")
+        }
         return this.toDouble().compareTo(other.toDouble())
     }
 
