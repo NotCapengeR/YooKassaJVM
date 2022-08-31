@@ -2,7 +2,9 @@ package yookassa.models.request
 
 import yookassa.models.shared.TaxSystemCode
 import yookassa.models.shared.item.Item
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class ReceiptRequest(
     val items: List<Item>,
     val customer: Customer? = null,
@@ -88,6 +90,7 @@ data class ReceiptRequest(
     }
 }
 
+@Serializable
 data class Customer(
     val fullName: String? = null,
     val inn: Int? = null,
@@ -124,6 +127,7 @@ data class Customer(
 }
 
 
+@Serializable
 data class ReceiptIndustryDetails(
     val federalId: String,
     val documentDate: String,
@@ -131,6 +135,7 @@ data class ReceiptIndustryDetails(
     val value: String
 )
 
+@Serializable
 data class RecipientOperationalDetails(
     val operationId: Int,
     val value: String,

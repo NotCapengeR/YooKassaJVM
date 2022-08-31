@@ -6,7 +6,9 @@ import yookassa.models.shared.refunds.Deal
 import yookassa.models.shared.refunds.RefundSettlement
 import yookassa.models.shared.refunds.Source
 import yookassa.utils.toAmount
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class RefundRequest(
     val paymentId: String,
     val amount: Amount,

@@ -3,8 +3,10 @@ package yookassa.models.shared
 import yookassa.YooKassaConfig
 import yookassa.utils.toAmount
 import java.math.BigDecimal
+import kotlinx.serialization.Serializable
 import java.math.BigInteger
 
+@Serializable
 data class Amount(val value: String, val currency: String) : Comparable<Amount>, java.io.Serializable {
 
     private val parsedValue: String

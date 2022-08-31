@@ -1,5 +1,8 @@
 package yookassa.models.shared.item
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 enum class PaymentMode(val value: String) : java.io.Serializable {
     FULL_PREPAYMENT("full_prepayment"),
     PARTIAL_PREPAYMENT("partial_prepayment"),

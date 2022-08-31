@@ -1,47 +1,68 @@
 package yookassa.models.response
 
+import kotlinx.serialization.SerialName
 import yookassa.models.shared.VatData
+import kotlinx.serialization.Serializable
 
-sealed class PaymentMethod(val type: String): java.io.Serializable {
+@Serializable
+sealed class PaymentMethod : java.io.Serializable {
 
+    @Serializable
+    @SerialName(ALFA_CLICK)
     data class AlfaClick(
         val id: String,
         val saved: Boolean,
         val title: String? = null,
         val login: String? = null,
-    ) : PaymentMethod(ALFA_CLICK)
+    ) : PaymentMethod()
 
+    @Serializable
+    @SerialName(MOBILE_BALANCE)
     data class MobileBalance(
         val id: String,
         val saved: Boolean,
         val title: String? = null
-    ) : PaymentMethod(MOBILE_BALANCE)
+    ) : PaymentMethod()
 
+    @Serializable
+    @SerialName(BANK_CARD)
     data class BankCard(
         val id: String,
         val saved: Boolean,
         val title: String? = null,
         val card: Card? = null
-    ) : PaymentMethod(BANK_CARD)
+    ) : PaymentMethod()
 
+
+    @Serializable
+    @SerialName(INSTALLMENTS)
     data class Installments(
         val id: String,
         val saved: Boolean,
         val title: String? = null
-    ) : PaymentMethod(INSTALLMENTS)
+    ) : PaymentMethod()
 
+
+    @Serializable
+    @SerialName(CASH)
     data class Cash(
         val id: String,
         val saved: Boolean,
         val title: String? = null
-    ) : PaymentMethod(CASH)
+    ) : PaymentMethod()
 
+
+    @Serializable
+    @SerialName(SBP_PAYMENT_TYPE)
     data class SBP(
         val id: String,
         val saved: Boolean,
         val title: String? = null
-    ) : PaymentMethod(SBP_PAYMENT_TYPE)
+    ) : PaymentMethod()
 
+
+    @Serializable
+    @SerialName(SBERBANK_BUSINESS_ONLINE)
     data class SberBankBusinessOnline(
         val id: String,
         val saved: Boolean,
@@ -49,47 +70,60 @@ sealed class PaymentMethod(val type: String): java.io.Serializable {
         val payoutBankDetails: PayoutBankDetails? = null,
         val paymentPurpose: String,
         val vatData: VatData,
-    ) : PaymentMethod(SBERBANK_BUSINESS_ONLINE)
+    ) : PaymentMethod()
 
+    @Serializable
+    @SerialName(TINFOFF_BANK)
     data class Tinkoff(
         val id: String,
         val saved: Boolean,
         val title: String? = null,
-    ) : PaymentMethod(TINFOFF_BANK)
+    ) : PaymentMethod()
 
+    @Serializable
+    @SerialName(YOO_MONEY)
     data class YooMoney(
         val id: String,
         val saved: Boolean,
         val title: String? = null,
         val accountNumber: String? = null
-    ) : PaymentMethod(YOO_MONEY)
+    ) : PaymentMethod()
 
+    @Serializable
+    @SerialName(APPLE_PAY)
     data class ApplePay(
         val id: String,
         val saved: Boolean,
         val title: String? = null,
-    ) : PaymentMethod(APPLE_PAY)
+    ) : PaymentMethod()
 
+    @Serializable
+    @SerialName(GOOGLE_PAY)
     data class GooglePay(
         val id: String,
         val saved: Boolean,
         val title: String? = null,
-    ) : PaymentMethod(GOOGLE_PAY)
+    ) : PaymentMethod()
 
+    @Serializable
+    @SerialName(QIWI_METHOD_DATA)
     data class QIWI(
         val id: String,
         val saved: Boolean,
         val title: String? = null,
-    ) : PaymentMethod(QIWI_METHOD_DATA)
+    ) : PaymentMethod()
 
+    @Serializable
+    @SerialName(SBERPAY)
     data class SberPay(
         val id: String,
         val saved: Boolean,
         val title: String? = null,
         val card: Card? = null,
         val phone: String? = null
-    ) : PaymentMethod(SBERPAY) {
+    ) : PaymentMethod() {
 
+        @Serializable
         data class Card(
             val BIN: String? = null,
             val last4: String,
@@ -99,39 +133,45 @@ sealed class PaymentMethod(val type: String): java.io.Serializable {
         )
     }
 
+    @Serializable
+    @SerialName(WE_CHAT)
     data class WeChat(
         val id: String,
         val saved: Boolean,
         val title: String? = null,
-    ) : PaymentMethod(WE_CHAT)
+    ) : PaymentMethod()
 
+    @Serializable
+    @SerialName(WEB_MONEY)
     data class WebMoney(
         val id: String,
         val saved: Boolean,
         val title: String? = null,
-    ) : PaymentMethod(WEB_MONEY)
+    ) : PaymentMethod()
 
 
-    private companion object {
+    companion object {
         // Payment methods types
-        private const val ALFA_CLICK: String = "alfabank"
-        private const val MOBILE_BALANCE: String = "mobile_balance"
-        private const val BANK_CARD: String = "bank_card"
-        private const val INSTALLMENTS: String = "installments"
-        private const val CASH: String = "cash"
-        private const val SBP_PAYMENT_TYPE: String = "sbp"
-        private const val SBERBANK_BUSINESS_ONLINE: String = "b2b_sberbank"
-        private const val TINFOFF_BANK: String = "tinkoff_bank"
-        private const val YOO_MONEY: String = "yoo_money"
-        private const val APPLE_PAY: String = "apple_pay"
-        private const val GOOGLE_PAY: String = "google_pay"
-        private const val QIWI_METHOD_DATA: String = "qiwi"
-        private const val SBERPAY: String = "sberbank"
-        private const val WE_CHAT: String = "wechat"
-        private const val WEB_MONEY: String = "webmoney"
+        const val ALFA_CLICK: String = "alfabank"
+        const val MOBILE_BALANCE: String = "mobile_balance"
+        const val BANK_CARD: String = "bank_card"
+        const val INSTALLMENTS: String = "installments"
+        const val CASH: String = "cash"
+        const val SBP_PAYMENT_TYPE: String = "sbp"
+        const val SBERBANK_BUSINESS_ONLINE: String = "b2b_sberbank"
+        const val TINFOFF_BANK: String = "tinkoff_bank"
+        const val YOO_MONEY: String = "yoo_money"
+        const val APPLE_PAY: String = "apple_pay"
+        const val GOOGLE_PAY: String = "google_pay"
+        const val QIWI_METHOD_DATA: String = "qiwi"
+        const val SBERPAY: String = "sberbank"
+        const val WE_CHAT: String = "wechat"
+        const val WEB_MONEY: String = "webmoney"
     }
 }
 
+
+@Serializable
 data class Card(
     val BIN: String? = null,
     val last4: String,

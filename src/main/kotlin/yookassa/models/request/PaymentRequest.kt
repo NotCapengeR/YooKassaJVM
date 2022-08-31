@@ -1,10 +1,13 @@
 package yookassa.models.request
 
+import kotlinx.serialization.SerialName
 import yookassa.YooKassaConfig
 import yookassa.models.shared.*
 import yookassa.utils.toAmount
+import kotlinx.serialization.Serializable
 import java.math.BigDecimal
 
+@Serializable
 data class PaymentRequest(
     val amount: Amount,
     val description: String? = null,
@@ -189,8 +192,10 @@ data class PaymentRequest(
 
 }
 
+@Serializable
 data class Recipient(val gatewayId: String): java.io.Serializable
 
+@Serializable
 data class Airline(
     val ticketNumber: String? = null,
     val bookingReference: String? = null,
@@ -231,6 +236,7 @@ data class Airline(
     }
 }
 
+@Serializable
 data class Leg(
     val departureAirport: String,
     val destinationAirport: String,
@@ -238,10 +244,12 @@ data class Leg(
     val carriedCode: String? = null
 ): java.io.Serializable
 
+@Serializable
 data class Passenger(
     val firstname: String, val lastname: String
 ): java.io.Serializable
 
+@Serializable
 data class Card(
     val number: String,
     val expiryYeah: String,
@@ -250,21 +258,32 @@ data class Card(
     val cardholder: String? = null
 ): java.io.Serializable
 
-sealed class Confirmation(val type: String): java.io.Serializable {
+@Serializable
+sealed class Confirmation : java.io.Serializable {
 
-    data class Embedded(val locale: String? = null) : Confirmation(EMBEDDED)
+    @Serializable
+    @SerialName(EMBEDDED)
+    data class Embedded(val locale: String? = null) : Confirmation()
 
-    data class External(val locale: String? = null) : Confirmation(EXTERNAL)
+    @Serializable
+    @SerialName(EXTERNAL)
+    data class External(val locale: String? = null) : Confirmation()
 
+    @Serializable
+    @SerialName(MOBILE_APPLICATION)
     data class MobileApplication(
         val returnUrl: String, val locale: String? = null
-    ) : Confirmation(MOBILE_APPLICATION)
+    ) : Confirmation()
 
-    data class QRCode(val locale: String? = null) : Confirmation(QR_CODE)
+    @Serializable
+    @SerialName(QR_CODE)
+    data class QRCode(val locale: String? = null) : Confirmation()
 
+    @Serializable
+    @SerialName(REDIRECT)
     data class Redirect(
         val returnUrl: String, val locale: String? = null, val enforce: Boolean? = null
-    ) : Confirmation(REDIRECT)
+    ) : Confirmation()
 
 
     companion object {
@@ -278,30 +297,53 @@ sealed class Confirmation(val type: String): java.io.Serializable {
     }
 }
 
-sealed class PaymentMethodData(val type: String): java.io.Serializable {
+@Serializable
+sealed class PaymentMethodData : java.io.Serializable {
 
-    data class AlfaClick(val login: String? = null) : PaymentMethodData(ALFA_CLICK)
+    @Serializable
+    @SerialName(ALFA_CLICK)
+    data class AlfaClick(val login: String? = null) : PaymentMethodData()
 
-    data class MobileBalance(val phone: String) : PaymentMethodData(MOBILE_BALANCE)
+    @Serializable
+    @SerialName(MOBILE_BALANCE)
+    data class MobileBalance(val phone: String) : PaymentMethodData()
 
-    data class BankCard(val card: Card? = null) : PaymentMethodData(BANK_CARD)
+    @Serializable
+    @SerialName(BANK_CARD)
+    data class BankCard(val card: Card? = null) : PaymentMethodData()
 
-    object Installments : PaymentMethodData(INSTALLMENTS)
+    @Serializable
+    @SerialName(INSTALLMENTS)
+    object Installments : PaymentMethodData()
 
-    data class Cash(val phone: String? = null) : PaymentMethodData(CASH)
+    @Serializable
+    @SerialName(CASH)
+    data class Cash(val phone: String? = null) : PaymentMethodData()
 
-    object SBP : PaymentMethodData(SBP_PAYMENT_TYPE)
+    @Serializable
+    @SerialName(SBP_PAYMENT_TYPE)
+    object SBP : PaymentMethodData()
 
+    @Serializable
+    @SerialName(SBERBANK_BUSINESS_ONLINE)
     data class SberBankBusinessOnline(val paymentPurpose: String, val vatData: VatData) :
-        PaymentMethodData(SBERBANK_BUSINESS_ONLINE)
+        PaymentMethodData()
 
-    object Tinkoff : PaymentMethodData(TINFOFF_BANK)
+    @Serializable
+    @SerialName(TINFOFF_BANK)
+    object Tinkoff : PaymentMethodData()
 
-    object YooMoney : PaymentMethodData(YOO_MONEY)
+    @Serializable
+    @SerialName(YOO_MONEY)
+    object YooMoney : PaymentMethodData()
 
-    data class QIWI(val phone: String? = null) : PaymentMethodData(QIWI_METHOD_DATA)
+    @Serializable
+    @SerialName(QIWI_METHOD_DATA)
+    data class QIWI(val phone: String? = null) : PaymentMethodData()
 
-    data class SberPay(val phone: String? = null) : PaymentMethodData(SBERPAY)
+    @Serializable
+    @SerialName(SBERPAY)
+    data class SberPay(val phone: String? = null) : PaymentMethodData()
 
     companion object {
         //  Payment method data types

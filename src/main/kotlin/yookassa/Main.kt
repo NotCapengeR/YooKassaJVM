@@ -1,6 +1,7 @@
 package yookassa
 
-import com.google.gson.Gson
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import yookassa.models.request.Confirmation
 import yookassa.models.request.PaymentMethodData
 import yookassa.models.request.PaymentRequest
@@ -12,8 +13,9 @@ import yookassa.models.shared.item.Measure
 import yookassa.models.shared.item.VatCode
 
 fun main() {
-    val gson = Gson()
+    val format = Json { prettyPrint = true }
     YooKassaConfig.setDefaultCurrency(Currencies.RUB)
+
 
 
     val item = Item.Builder()
@@ -26,7 +28,7 @@ fun main() {
 
     val item2 = item.copy(amount = Amount.fromValue(300.4), quantity = 5)
 
-    val payment = PaymentRequest.Builder(103.23)
+    val payment: PaymentRequest = PaymentRequest.Builder(103.23)
         .description("Hueta")
         .paymentMethodData(PaymentMethodData.SBP)
         .recipient("13232312132")
@@ -40,5 +42,5 @@ fun main() {
 
 
 
-    println(gson.toJson(payment))
+    println(format.encodeToString(payment))
 }

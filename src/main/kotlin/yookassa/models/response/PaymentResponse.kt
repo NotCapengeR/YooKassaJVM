@@ -1,10 +1,13 @@
 package yookassa.models.response
 
+import kotlinx.serialization.SerialName
 import yookassa.models.shared.Amount
 import yookassa.models.shared.CancellationDetails
 import yookassa.models.shared.Metadata
 import yookassa.models.shared.Transfer
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class PaymentResponse(
     val id: String,
     val status: String,
@@ -29,16 +32,20 @@ data class PaymentResponse(
     val merchantCustomerId: String? = null
 ): java.io.Serializable
 
+@Serializable
 data class Recipient(val accountId: String, val gatewayId: String): java.io.Serializable
 
+@Serializable
 data class AuthorizationDetails(
     val rrn: String? = null,
     val authCode: String? = null,
     val threeDSecure: ThreeDSecure,
 ): java.io.Serializable
 
+@Serializable
 data class ThreeDSecure(val applied: Boolean): java.io.Serializable
 
+@Serializable
 data class PayoutBankDetails(
     val fullName: String,
     val shortName: String,
@@ -51,32 +58,43 @@ data class PayoutBankDetails(
     val kpp: String? = null
 ): java.io.Serializable
 
-sealed class Confirmation(val type: String): java.io.Serializable {
+@Serializable
+sealed class Confirmation : java.io.Serializable {
 
-    data class Embedded(val token: String) : Confirmation(EMBEDDED)
+    @Serializable
+    @SerialName(EMBEDDED)
+    data class Embedded(val token: String) : Confirmation()
 
-    object External : Confirmation(EXTERNAL)
+    @Serializable
+    @SerialName(EXTERNAL)
+    object External : Confirmation()
 
+    @Serializable
+    @SerialName(MOBILE_APPLICATION)
     data class MobileApplication(
         val confirmationUrl: String
-    ) : Confirmation(MOBILE_APPLICATION)
+    ) : Confirmation()
 
-    data class QRCode(val confirmationData: String) : Confirmation(QR_CODE)
+    @Serializable
+    @SerialName(QR_CODE)
+    data class QRCode(val confirmationData: String) : Confirmation()
 
+    @Serializable
+    @SerialName(REDIRECT)
     data class Redirect(
         val confirmationUrl: String,
         val enforce: Boolean? = null,
         val returnUrl: String? = null,
-    ) : Confirmation(REDIRECT)
+    ) : Confirmation()
 
 
-    private companion object {
+    companion object {
         // Confirmation types
-        private const val EMBEDDED: String = "embedded"
-        private const val EXTERNAL: String = "external"
-        private const val MOBILE_APPLICATION: String = "mobile_application"
-        private const val QR_CODE: String = "qr"
-        private const val REDIRECT: String = "redirect"
+        const val EMBEDDED: String = "embedded"
+        const val EXTERNAL: String = "external"
+        const val MOBILE_APPLICATION: String = "mobile_application"
+        const val QR_CODE: String = "qr"
+        const val REDIRECT: String = "redirect"
 
     }
 }

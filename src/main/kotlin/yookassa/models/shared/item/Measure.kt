@@ -1,5 +1,8 @@
 package yookassa.models.shared.item
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 enum class Measure(val value: String) : java.io.Serializable {
     PIECE("piece"),
     GRAM("gram"),

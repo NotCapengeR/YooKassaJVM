@@ -1,5 +1,8 @@
 package yookassa.models.shared.item
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 enum class CountryOfOriginMode : java.io.Serializable {
     AU, AD, AE, AF, AG, AI, AL, AM, AN, AO, AQ, AR, AS, AT, AW, AZ, BA, BB, BD, BE, BF, BG, BH, BI, BJ,
     BM, BN, BO, BR, BS, BT, BV, BW, BY, BZ, CA, CC, CD, CF, CG, CH, CI, CK, CL, CM, CN, CO, CR, CS, CU,

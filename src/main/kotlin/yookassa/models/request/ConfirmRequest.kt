@@ -5,8 +5,10 @@ import yookassa.models.shared.Amount
 import yookassa.models.shared.Currencies
 import yookassa.models.shared.refunds.Deal
 import yookassa.utils.toAmount
+import kotlinx.serialization.Serializable
 import java.math.BigDecimal
 
+@Serializable
 data class ConfirmRequest(
     val amount: Amount,
     val receipt: ReceiptRequest? = null,
@@ -95,6 +97,7 @@ data class ConfirmRequest(
     }
 }
 
+@Serializable
 data class Transfer @JvmOverloads constructor(
     val accountId: String,
     val amount: Amount,

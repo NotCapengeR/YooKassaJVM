@@ -2,7 +2,9 @@ package yookassa.models.shared.list
 
 import yookassa.models.response.PaymentMethod
 import yookassa.models.shared.PaymentStatus
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class PaymentListRequest(
     val limit: Int = 10,
     val createdAtGte: String? = null,

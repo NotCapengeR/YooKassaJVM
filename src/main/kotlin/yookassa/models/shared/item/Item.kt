@@ -4,8 +4,10 @@ import yookassa.YooKassaConfig
 import yookassa.models.shared.Amount
 import yookassa.models.shared.Currencies
 import yookassa.utils.toAmount
+import kotlinx.serialization.Serializable
 import kotlin.properties.Delegates
 
+@Serializable
 data class Item(
     val amount: Amount,
     val description: String,
@@ -23,6 +25,7 @@ data class Item(
     val markMode: String? = null,
     val paymentSubjectIndustryDetails: List<PaymentSubjectIndustryDetails>? = null
 ): java.io.Serializable {
+
     private constructor(builder: Builder) : this(
         amount = builder.amount,
         description = builder.description,
@@ -100,8 +103,10 @@ data class Item(
     }
 }
 
+@Serializable
 data class MarkQuantity(val numerator: Int, val denominator: Int): java.io.Serializable
 
+@Serializable
 data class MarkCodeInfo(
     val markCodeRaw: String? = null,
     val unknown: String? = null,
@@ -166,6 +171,7 @@ data class MarkCodeInfo(
     }
 }
 
+@Serializable
 data class PaymentSubjectIndustryDetails(
     val federalId: String,
     val documentDate: String,

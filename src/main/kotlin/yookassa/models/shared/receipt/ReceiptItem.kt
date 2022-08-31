@@ -5,8 +5,11 @@ import yookassa.models.shared.Amount
 import yookassa.models.shared.Currencies
 import yookassa.models.shared.item.*
 import yookassa.utils.toAmount
+import kotlinx.serialization.Serializable
 import kotlin.properties.Delegates
 
+
+@Serializable
 data class ReceiptItem(
     val amount: Amount,
     val description: String,
@@ -119,6 +122,7 @@ data class ReceiptItem(
     }
 }
 
+@Serializable
 data class Supplier(
     val name: String? = null,
     val phone: String? = null,

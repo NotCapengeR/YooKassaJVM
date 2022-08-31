@@ -1,7 +1,9 @@
 package yookassa.models.shared.receipt
 
 import yookassa.models.shared.PaymentStatus
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class ReceiptRequest(
     val id: String,
     val type: String,
@@ -78,6 +80,8 @@ data class ReceiptRequest(
     }
 }
 
+
+@Serializable
 enum class ReceiptType(val type: String) : java.io.Serializable {
     Payment("payment"), Refund("refund")
 }

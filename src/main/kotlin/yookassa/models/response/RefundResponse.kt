@@ -1,10 +1,12 @@
 package yookassa.models.response
 
+import kotlinx.serialization.Serializable
 import yookassa.models.shared.Amount
 import yookassa.models.shared.CancellationDetails
 import yookassa.models.shared.refunds.Deal
 import yookassa.models.shared.refunds.Source
 
+@Serializable
 data class RefundResponse(
     val id: String,
     val paymentId: String,

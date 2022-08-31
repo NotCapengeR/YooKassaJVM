@@ -1,16 +1,25 @@
 package yookassa.models.shared
 
+import kotlinx.serialization.SerialName
 import yookassa.YooKassaConfig
 import yookassa.utils.toAmount
+import kotlinx.serialization.Serializable
 import java.math.BigDecimal
 
-sealed class VatData(val type: String): java.io.Serializable {
+@Serializable
+sealed class VatData : java.io.Serializable {
 
-    object Untaxed : VatData(UNTAXED)
+    @Serializable
+    @SerialName(UNTAXED)
+    object Untaxed : VatData()
 
-    data class Calculated(val amount: Amount, val rate: String) : VatData(CALCULATED)
+    @Serializable
+    @SerialName(CALCULATED)
+    data class Calculated(val amount: Amount, val rate: String) : VatData()
 
-    data class Mixed(val amount: Amount) : VatData(MIXED)
+    @Serializable
+    @SerialName(MIXED)
+    data class Mixed(val amount: Amount) : VatData()
 
     companion object {
         const val UNTAXED: String = "untaxed"
@@ -19,6 +28,7 @@ sealed class VatData(val type: String): java.io.Serializable {
     }
 }
 
+@Serializable
 data class Transfer(
     val accountId: String,
     val amount: Amount,
@@ -141,16 +151,19 @@ data class Transfer(
     }
 }
 
+@Serializable
 data class CancellationDetails(
     val party: String,
     val reason: String,
 ): java.io.Serializable
 
+@Serializable
 data class Deal(
     val id: String,
     val settlements: List<Settlement>
 ): java.io.Serializable
 
+@Serializable
 data class Settlement(
     val type: String,
     val amount: Amount,

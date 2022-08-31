@@ -1,10 +1,12 @@
 package yookassa.models.response
 
+import kotlinx.serialization.SerialName
 import yookassa.models.shared.Amount
 import yookassa.models.shared.CancellationDetails
 import yookassa.models.shared.Metadata
+import kotlinx.serialization.Serializable
 
-
+@Serializable
 data class PayoutResponse(
     val id: String,
     val amount: Amount,
@@ -20,21 +22,28 @@ data class PayoutResponse(
     val test: Boolean
 )
 
-sealed class PayoutDestination(val type: String): java.io.Serializable {
+@Serializable
+sealed class PayoutDestination : java.io.Serializable {
 
+    @Serializable
+    @SerialName(BANK_CARD)
     data class BankCard(
         val card: PayoutCard
-    ): PayoutDestination(BANK_CARD)
+    ): PayoutDestination()
 
+    @Serializable
+    @SerialName(Companion.SBP)
     data class SBP(
         val bankId: String,
         val phone: String,
         val recipientChecked: Boolean
-    ) : PayoutDestination(SBP)
+    ) : PayoutDestination()
 
+    @Serializable
+    @SerialName(YOO_MONEY)
     data class YooMoney(
         val accountNumber: String,
-    ) : PayoutDestination(YOO_MONEY)
+    ) : PayoutDestination()
 
     companion object {
         const val BANK_CARD: String = "bank_card"
@@ -44,6 +53,7 @@ sealed class PayoutDestination(val type: String): java.io.Serializable {
 
 }
 
+@Serializable
 data class PayoutCard(
     val BIN: String,
     val last4: String,
@@ -52,15 +62,19 @@ data class PayoutCard(
     val issuerName: String? = null
 ): java.io.Serializable
 
+@Serializable
 enum class CardType : java.io.Serializable {
     MasterCard, Visa, Mir, UnionPay, JCB, AmericanExpress, DinersClub, DiscoverCard, InstaPayment, InstaPaymentTM,
     Laser, Dankort, Solo, Switch, Unknown
 }
 
+@Serializable
 data class PayoutDeal(val id: String): java.io.Serializable
 
+@Serializable
 data class SelfEmployed(val id: String): java.io.Serializable
 
+@Serializable
 data class PayoutReceipt(
     val serviceName: String,
     val npdReceiptId: String? = null,
