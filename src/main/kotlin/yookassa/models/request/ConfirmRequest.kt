@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import yookassa.YooKassaConfig
 import yookassa.models.shared.Amount
 import yookassa.models.shared.Currencies
-import yookassa.models.shared.refunds.Deal
+import yookassa.models.shared.refunds.RefundDeal
 import yookassa.utils.toAmount
 import kotlinx.serialization.Serializable
 import yookassa.models.shared.receipt.Receipt
@@ -15,8 +15,8 @@ data class ConfirmRequest(
     val amount: Amount,
     val receipt: Receipt? = null,
     val airline: Airline? = null,
-    val transfers: List<Transfer>? = null,
-    val deal: Deal? = null
+    val transfers: List<ConfirmTransfer>? = null,
+    val deal: RefundDeal? = null
 ): java.io.Serializable {
 
     private constructor(builder: Builder) : this(
@@ -34,9 +34,9 @@ data class ConfirmRequest(
             private set
         internal var airline: Airline? = null
             private set
-        internal var transfers: List<Transfer>? = null
+        internal var transfers: List<ConfirmTransfer>? = null
             private set
-        internal var deal: Deal? = null
+        internal var deal: RefundDeal? = null
             private set
 
 
@@ -89,18 +89,18 @@ data class ConfirmRequest(
 
         fun airline(airline: Airline?): Builder = apply { this.airline = airline }
 
-        fun transfers(transfers: List<Transfer>?): Builder = apply { this.transfers = transfers }
+        fun transfers(transfers: List<ConfirmTransfer>?): Builder = apply { this.transfers = transfers }
 
-        fun transfers(vararg transfers: Transfer): Builder = transfers(transfers.toList())
+        fun transfers(vararg transfers: ConfirmTransfer): Builder = transfers(transfers.toList())
 
-        fun dead(deal: Deal?): Builder = apply { this.deal = deal }
+        fun dead(deal: RefundDeal?): Builder = apply { this.deal = deal }
 
         fun build(): ConfirmRequest = ConfirmRequest(this)
     }
 }
 
 @Serializable
-data class Transfer @JvmOverloads constructor(
+data class ConfirmTransfer @JvmOverloads constructor(
     @SerialName("account_id") val accountId: String,
     @SerialName("amount") val amount: Amount,
     @SerialName("platform_fee_amount") val platformFeeAmount: Amount? = null

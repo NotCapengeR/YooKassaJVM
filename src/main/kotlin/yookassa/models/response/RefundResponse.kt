@@ -3,7 +3,7 @@ package yookassa.models.response
 import kotlinx.serialization.Serializable
 import yookassa.models.shared.Amount
 import yookassa.models.shared.CancellationDetails
-import yookassa.models.shared.refunds.Deal
+import yookassa.models.shared.refunds.RefundDeal
 import yookassa.models.shared.refunds.Source
 
 @Serializable
@@ -17,5 +17,5 @@ data class RefundResponse(
     val amount: Amount,
     val description: String? = null,
     val sources: List<Source>? = null,
-    val deal: Deal
+    val deal: RefundDeal
 ): java.io.Serializable

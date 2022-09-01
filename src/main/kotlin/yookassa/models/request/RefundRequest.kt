@@ -2,7 +2,7 @@ package yookassa.models.request
 
 import yookassa.models.shared.Amount
 import yookassa.models.shared.Currencies
-import yookassa.models.shared.refunds.Deal
+import yookassa.models.shared.refunds.RefundDeal
 import yookassa.models.shared.refunds.RefundSettlement
 import yookassa.models.shared.refunds.Source
 import yookassa.utils.toAmount
@@ -16,7 +16,7 @@ data class RefundRequest(
     val description: String? = null,
     val receipt: Receipt? = null,
     val sources: List<Source>? = null,
-    val deal: Deal? = null,
+    val deal: RefundDeal? = null,
 ): java.io.Serializable {
 
     private constructor(builder: Builder) : this(
@@ -34,7 +34,7 @@ data class RefundRequest(
         internal var description: String? = null
         internal var receipt: Receipt? = null
         internal var sources: List<Source>? = null
-        internal var deal: Deal? = null
+        internal var deal: RefundDeal? = null
 
         fun paymentId(value: String): Builder = apply { this.paymentId = value }
 
@@ -52,7 +52,7 @@ data class RefundRequest(
         fun deal(vararg amount: Amount): Builder = deal(amount.toList())
 
         fun deal(amount: List<Amount>): Builder = apply {
-            this.deal = Deal(amount.map { RefundSettlement(amount = it) })
+            this.deal = RefundDeal(amount.map { RefundSettlement(amount = it) })
         }
 
         fun build() = RefundRequest(this)

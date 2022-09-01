@@ -23,7 +23,7 @@ data class PaymentRequest(
     @SerialName("client_ip") val clientIp: String? = null,
     @SerialName("metadata") val metaData: Metadata? = null,
     @SerialName("airline") val airline: Airline? = null,
-    @SerialName("transfers") val transfers: List<yookassa.models.shared.Transfer>? = null,
+    @SerialName("transfers") val transfers: List<PaymentTransfer>? = null,
     @SerialName("deal") val deal: Deal? = null,
     @SerialName("merchant_customer_id") val merchantCustomerId: String? = null
 ): java.io.Serializable {
@@ -74,7 +74,7 @@ data class PaymentRequest(
             private set
         internal var airline: Airline? = null
             private set
-        internal var transfers: List<yookassa.models.shared.Transfer>? = null
+        internal var transfers: List<PaymentTransfer>? = null
             private set
         internal var deal: Deal? = null
             private set
@@ -140,9 +140,9 @@ data class PaymentRequest(
 
         fun clientIp(ip: String?): Builder = apply { this.clientIp = ip }
 
-        fun transfers(transfers: List<yookassa.models.shared.Transfer>?): Builder = apply { this.transfers = transfers }
+        fun transfers(transfers: List<PaymentTransfer>?): Builder = apply { this.transfers = transfers }
 
-        fun transfers(vararg transfers: yookassa.models.shared.Transfer): Builder = transfers(transfers.toList())
+        fun transfers(vararg transfers: PaymentTransfer): Builder = transfers(transfers.toList())
 
         fun capture(capture: Boolean?): Builder = apply { this.capture = capture }
 
@@ -245,7 +245,7 @@ data class Passenger(
 ): java.io.Serializable
 
 @Serializable
-data class Card(
+data class PaymentCard(
     val number: String,
     val expiryYeah: String,
     val expiryMonth: String,
@@ -308,7 +308,7 @@ sealed class PaymentMethodData : java.io.Serializable {
 
     @Serializable
     @SerialName(BANK_CARD)
-    data class BankCard(@SerialName("card") val card: Card? = null) : PaymentMethodData()
+    data class BankCard(@SerialName("card") val card: PaymentCard? = null) : PaymentMethodData()
 
     @Serializable
     @SerialName(INSTALLMENTS)

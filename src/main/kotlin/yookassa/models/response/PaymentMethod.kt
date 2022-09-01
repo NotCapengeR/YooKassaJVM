@@ -30,7 +30,7 @@ sealed class PaymentMethod : java.io.Serializable {
         val id: String,
         val saved: Boolean,
         val title: String? = null,
-        val card: Card? = null
+        val card: PaymentMethodCard? = null
     ) : PaymentMethod()
 
 
@@ -172,7 +172,7 @@ sealed class PaymentMethod : java.io.Serializable {
 
 
 @Serializable
-data class Card(
+data class PaymentMethodCard(
     val bin: String? = null,
     val last4: String,
     val expiryYear: String,

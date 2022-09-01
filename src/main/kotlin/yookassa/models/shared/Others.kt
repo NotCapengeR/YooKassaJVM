@@ -29,7 +29,7 @@ sealed class VatData : java.io.Serializable {
 }
 
 @Serializable
-data class Transfer(
+data class PaymentTransfer(
     @SerialName("account_id") val accountId: String,
     @SerialName("amount") val amount: Amount,
     @SerialName("platform_fee_amount") val platformFeeAmount: Amount? = null,
@@ -57,7 +57,7 @@ data class Transfer(
         internal var metaData: Metadata? = null
             private set
 
-        fun build(): Transfer = Transfer(this)
+        fun build(): PaymentTransfer = PaymentTransfer(this)
 
         fun accountId(id: String): Builder = apply { this.accountId = id }
 

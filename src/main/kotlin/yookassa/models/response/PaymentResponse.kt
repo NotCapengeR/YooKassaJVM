@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import yookassa.models.shared.Amount
 import yookassa.models.shared.CancellationDetails
 import yookassa.models.shared.Metadata
-import yookassa.models.shared.Transfer
+import yookassa.models.shared.PaymentTransfer
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -28,7 +28,7 @@ data class PaymentResponse(
     val metadata: Metadata? = null,
     val cancellationDetails: CancellationDetails? = null,
     val authorizationDetails: AuthorizationDetails? = null,
-    val transfers: List<Transfer>? = null,
+    val transfers: List<PaymentTransfer>? = null,
     val merchantCustomerId: String? = null
 ): java.io.Serializable
 
