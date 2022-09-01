@@ -15,7 +15,7 @@ data class ConfirmRequest(
     val amount: Amount,
     val receipt: Receipt? = null,
     val airline: Airline? = null,
-    val transfers: List<yookassa.models.shared.Transfer>? = null,
+    val transfers: List<Transfer>? = null,
     val deal: Deal? = null
 ): java.io.Serializable {
 
@@ -34,7 +34,7 @@ data class ConfirmRequest(
             private set
         internal var airline: Airline? = null
             private set
-        internal var transfers: List<yookassa.models.shared.Transfer>? = null
+        internal var transfers: List<Transfer>? = null
             private set
         internal var deal: Deal? = null
             private set
@@ -89,9 +89,9 @@ data class ConfirmRequest(
 
         fun airline(airline: Airline?): Builder = apply { this.airline = airline }
 
-        fun transfers(transfers: List<yookassa.models.shared.Transfer>?): Builder = apply { this.transfers = transfers }
+        fun transfers(transfers: List<Transfer>?): Builder = apply { this.transfers = transfers }
 
-        fun transfers(vararg transfers: yookassa.models.shared.Transfer): Builder = transfers(transfers.toList())
+        fun transfers(vararg transfers: Transfer): Builder = transfers(transfers.toList())
 
         fun dead(deal: Deal?): Builder = apply { this.deal = deal }
 

@@ -8,35 +8,38 @@
     "items": [
       {
         "amount": {
-          "value": "10,00",
+          "value": "200,00",
           "currency": "RUB"
         },
         "description": "description",
         "quantity": 2,
-        "vatCode": 3,
-        "measure": "centimeter"
+        "measure": "centimeter",
+        "vat_code": 3
       },
       {
         "amount": {
-          "value": "300.0",
+          "value": "300,00",
           "currency": "RUB"
         },
         "description": "description",
-        "quantity": 5,
-        "vatCode": 3,
-        "measure": "centimeter"
+        "quantity": 1,
+        "measure": "centimeter",
+        "vat_code": 3
       }
-    ]
+    ],
+    "phone": "8800553535",
+    "email": "koldun_piskogriz888@list.ru"
   },
   "recipient": {
-    "gatewayId": "13232312132"
+    "gateway_id": "13232312132"
   },
-  "paymentMethodData": {
+  "payment_method_data": {
     "type": "sbp"
   },
   "confirmation": {
-    "returnUrl": "https://.../",
-    "type": "redirect"
+    "type": "redirect",
+    "return_url": "https://.../"
   },
-  "merchantCustomerId": "1313212"
+  "merchant_customer_id": "1313212"
 }
+

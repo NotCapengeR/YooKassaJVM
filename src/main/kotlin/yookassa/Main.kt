@@ -42,6 +42,8 @@ fun main() {
         .confirmation(Confirmation.Redirect("https://.../"))
         .receipt(Receipt.Builder()
             .setItems(listOf(item, item2))
+            .phone("8800553535")
+            .email("koldun_piskogriz888@list.ru")
             .build()
         )
         .build()

@@ -23,7 +23,7 @@ data class PaymentRequest(
     @SerialName("client_ip") val clientIp: String? = null,
     @SerialName("metadata") val metaData: Metadata? = null,
     @SerialName("airline") val airline: Airline? = null,
-    @SerialName("transfers") val transfers: List<Transfer>? = null,
+    @SerialName("transfers") val transfers: List<yookassa.models.shared.Transfer>? = null,
     @SerialName("deal") val deal: Deal? = null,
     @SerialName("merchant_customer_id") val merchantCustomerId: String? = null
 ): java.io.Serializable {
@@ -48,7 +48,7 @@ data class PaymentRequest(
     )
 
     class Builder(
-        internal val amount: Amount
+        internal var amount: Amount
     ) {
         internal var description: String? = null
             private set
@@ -74,7 +74,7 @@ data class PaymentRequest(
             private set
         internal var airline: Airline? = null
             private set
-        internal var transfers: List<Transfer>? = null
+        internal var transfers: List<yookassa.models.shared.Transfer>? = null
             private set
         internal var deal: Deal? = null
             private set
@@ -126,6 +126,7 @@ data class PaymentRequest(
             currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY
         ) : this(Amount(value.toAmount(), currency.name))
 
+        fun amount(amount: Amount): Builder = apply { this.amount = amount }
 
         fun description(description: String?): Builder = apply { this.description = description }
 
@@ -139,9 +140,9 @@ data class PaymentRequest(
 
         fun clientIp(ip: String?): Builder = apply { this.clientIp = ip }
 
-        fun transfers(transfers: List<Transfer>?): Builder = apply { this.transfers = transfers }
+        fun transfers(transfers: List<yookassa.models.shared.Transfer>?): Builder = apply { this.transfers = transfers }
 
-        fun transfers(vararg transfers: Transfer): Builder = transfers(transfers.toList())
+        fun transfers(vararg transfers: yookassa.models.shared.Transfer): Builder = transfers(transfers.toList())
 
         fun capture(capture: Boolean?): Builder = apply { this.capture = capture }
 

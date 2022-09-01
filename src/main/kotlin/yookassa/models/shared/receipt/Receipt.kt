@@ -13,7 +13,7 @@ data class Receipt(
     @SerialName("email") val email: String? = null,
     @SerialName("tax_system_code") val taxSystemCode: Int? = null,
     @SerialName("receipt_industry_details") val recipientIndustryDetails: List<ReceiptIndustryDetails>? = null,
-    @SerialName("receipt_operational_details") val recipientOperationalDetails: RecipientOperationalDetails? = null
+    @SerialName("receipt_operational_details") val receiptOperationalDetails: ReceiptOperationalDetails? = null
 ): java.io.Serializable {
 
     private constructor(builder: Builder) : this(
@@ -23,7 +23,7 @@ data class Receipt(
         email = builder.email,
         taxSystemCode = builder.taxSystemCode?.code,
         recipientIndustryDetails = builder.recipientIndustryDetails,
-        recipientOperationalDetails = builder.recipientOperationalDetails
+        receiptOperationalDetails = builder.receiptOperationalDetails
     )
 
     class Builder {
@@ -39,7 +39,7 @@ data class Receipt(
             private set
         var recipientIndustryDetails: List<ReceiptIndustryDetails>? = null
             private set
-        var recipientOperationalDetails: RecipientOperationalDetails? = null
+        var receiptOperationalDetails: ReceiptOperationalDetails? = null
             private set
 
         fun setItems(items: List<Item>): Builder = apply { this.items = items }
@@ -77,15 +77,15 @@ data class Receipt(
         fun recipientIndustryDetails(vararg details: ReceiptIndustryDetails): Builder =
             recipientIndustryDetails(details.toList())
 
-        fun recipientOperationalDetails(details: RecipientOperationalDetails): Builder = apply {
-            this.recipientOperationalDetails = details
+        fun recipientOperationalDetails(details: ReceiptOperationalDetails): Builder = apply {
+            this.receiptOperationalDetails = details
         }
 
         fun recipientOperationalDetails(
             operationId: Int,
             value: String,
             createdAt: String
-        ): Builder = recipientOperationalDetails(RecipientOperationalDetails(operationId, value, createdAt))
+        ): Builder = recipientOperationalDetails(ReceiptOperationalDetails(operationId, value, createdAt))
 
         fun build(): Receipt = Receipt(this)
     }
@@ -137,7 +137,7 @@ data class ReceiptIndustryDetails(
 )
 
 @Serializable
-data class RecipientOperationalDetails(
+data class ReceiptOperationalDetails(
     @SerialName("operation_id") val operationId: Int,
     @SerialName("value") val value: String,
     @SerialName("created_at") val createdAt: String

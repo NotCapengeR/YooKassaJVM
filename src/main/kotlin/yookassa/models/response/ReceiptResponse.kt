@@ -1,12 +1,11 @@
 package yookassa.models.response
 
 import kotlinx.serialization.SerialName
-import yookassa.models.shared.PaymentStatus
 import kotlinx.serialization.Serializable
 import yookassa.models.shared.Settlement
 import yookassa.models.shared.receipt.ReceiptIndustryDetails
 import yookassa.models.shared.receipt.ReceiptItem
-import yookassa.models.shared.receipt.RecipientOperationalDetails
+import yookassa.models.shared.receipt.ReceiptOperationalDetails
 
 @Serializable
 data class ReceiptResponse(
@@ -25,7 +24,7 @@ data class ReceiptResponse(
     @SerialName("on_behalf_of") val onBehalfOn: String? = null,
     @SerialName("tax_system_code") val taxSystemCode: Int? = null,
     @SerialName("receipt_industry_details") val receiptIndustryDetails: List<ReceiptIndustryDetails>? = null,
-    @SerialName("receipt_operational_details") val receiptOperationsDetails: RecipientOperationalDetails? = null
+    @SerialName("receipt_operational_details") val receiptOperationsDetails: ReceiptOperationalDetails? = null
 ): java.io.Serializable
 
 
