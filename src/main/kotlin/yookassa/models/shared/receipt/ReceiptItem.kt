@@ -11,9 +11,9 @@ import kotlin.properties.Delegates
 
 @Serializable
 data class ReceiptItem(
-    val amount: Amount,
     val description: String,
     val quantity: Int,
+    val amount: Amount,
     val vatCode: Int,
     val measure: String? = null,
     val markQuantity: MarkQuantity? = null,

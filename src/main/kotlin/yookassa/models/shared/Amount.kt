@@ -1,5 +1,6 @@
 package yookassa.models.shared
 
+import kotlinx.serialization.SerialName
 import yookassa.YooKassaConfig
 import yookassa.utils.toAmount
 import java.math.BigDecimal
@@ -7,8 +8,10 @@ import kotlinx.serialization.Serializable
 import java.math.BigInteger
 
 @Serializable
-data class Amount internal constructor(val value: String, val currency: String) :
-    Comparable<Amount>, java.io.Serializable {
+data class Amount internal constructor(
+    @SerialName("value") val value: String,
+    @SerialName("currency") val currency: String
+    ) : Comparable<Amount>, java.io.Serializable {
 
     constructor(pair: Pair<Double, Currencies>) : this(pair.first.toAmount(), pair.second.name)
 

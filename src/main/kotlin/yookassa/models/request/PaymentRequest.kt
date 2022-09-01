@@ -5,26 +5,27 @@ import yookassa.YooKassaConfig
 import yookassa.models.shared.*
 import yookassa.utils.toAmount
 import kotlinx.serialization.Serializable
+import yookassa.models.shared.receipt.Receipt
 import java.math.BigDecimal
 
 @Serializable
 data class PaymentRequest(
-    val amount: Amount,
-    val description: String? = null,
-    val receipt: ReceiptRequest? = null,
-    val recipient: Recipient? = null,
-    val paymentToken: String? = null,
-    val paymentMethodId: String? = null,
-    val paymentMethodData: PaymentMethodData? = null,
-    val confirmation: Confirmation? = null,
-    val savePaymentMethod: Boolean? = null,
-    val capture: Boolean? = null,
-    val clientIp: String? = null,
-    val metaData: Metadata? = null,
-    val airline: Airline? = null,
-    val transfers: List<Transfer>? = null,
-    val deal: Deal? = null,
-    val merchantCustomerId: String? = null
+    @SerialName("amount") val amount: Amount,
+    @SerialName("description") val description: String? = null,
+    @SerialName("receipt") val receipt: Receipt? = null,
+    @SerialName("recipient") val recipient: Recipient? = null,
+    @SerialName("payment_token") val paymentToken: String? = null,
+    @SerialName("payment_method_id") val paymentMethodId: String? = null,
+    @SerialName("payment_method_data") val paymentMethodData: PaymentMethodData? = null,
+    @SerialName("confirmation") val confirmation: Confirmation? = null,
+    @SerialName("save_payment_method") val savePaymentMethod: Boolean? = null,
+    @SerialName("capture") val capture: Boolean? = null,
+    @SerialName("client_ip") val clientIp: String? = null,
+    @SerialName("metadata") val metaData: Metadata? = null,
+    @SerialName("airline") val airline: Airline? = null,
+    @SerialName("transfers") val transfers: List<Transfer>? = null,
+    @SerialName("deal") val deal: Deal? = null,
+    @SerialName("merchant_customer_id") val merchantCustomerId: String? = null
 ): java.io.Serializable {
 
     private constructor(builder: Builder) : this(
@@ -51,7 +52,7 @@ data class PaymentRequest(
     ) {
         internal var description: String? = null
             private set
-        internal var receipt: ReceiptRequest? = null
+        internal var receipt: Receipt? = null
             private set
         internal var recipient: Recipient? = null
             private set
@@ -132,7 +133,7 @@ data class PaymentRequest(
 
         fun recipient(gatewayId: String): Builder = recipient(Recipient(gatewayId))
 
-        fun receipt(receipt: ReceiptRequest?): Builder = apply { this.receipt = receipt }
+        fun receipt(receipt: Receipt?): Builder = apply { this.receipt = receipt }
 
         fun confirmation(confirmation: Confirmation?): Builder = apply { this.confirmation = confirmation }
 
@@ -185,14 +186,14 @@ data class PaymentRequest(
 }
 
 @Serializable
-data class Recipient(val gatewayId: String): java.io.Serializable
+data class Recipient(@SerialName("gateway_id") val gatewayId: String): java.io.Serializable
 
 @Serializable
 data class Airline(
-    val ticketNumber: String? = null,
-    val bookingReference: String? = null,
-    val passengers: List<Passenger>? = null,
-    val legs: List<Leg>? = null
+    @SerialName("ticket_number") val ticketNumber: String? = null,
+    @SerialName("booking_reference") val bookingReference: String? = null,
+    @SerialName("passengers") val passengers: List<Passenger>? = null,
+    @SerialName("legs") val legs: List<Leg>? = null
 ): java.io.Serializable {
 
     private constructor(builder: Builder) : this(
@@ -230,15 +231,16 @@ data class Airline(
 
 @Serializable
 data class Leg(
-    val departureAirport: String,
-    val destinationAirport: String,
-    val departureDate: String,
-    val carriedCode: String? = null
+    @SerialName("departure_airport") val departureAirport: String,
+    @SerialName("destination_airport") val destinationAirport: String,
+    @SerialName("departure_date") val departureDate: String,
+    @SerialName("carrier_code") val carriedCode: String? = null
 ): java.io.Serializable
 
 @Serializable
 data class Passenger(
-    val firstname: String, val lastname: String
+    @SerialName("first_name") val firstname: String,
+    @SerialName("last_name") val lastname: String
 ): java.io.Serializable
 
 @Serializable
@@ -255,26 +257,29 @@ sealed class Confirmation : java.io.Serializable {
 
     @Serializable
     @SerialName(EMBEDDED)
-    data class Embedded(val locale: String? = null) : Confirmation()
+    data class Embedded(@SerialName("locale") val locale: String? = null) : Confirmation()
 
     @Serializable
     @SerialName(EXTERNAL)
-    data class External(val locale: String? = null) : Confirmation()
+    data class External(@SerialName("locale") val locale: String? = null) : Confirmation()
 
     @Serializable
     @SerialName(MOBILE_APPLICATION)
     data class MobileApplication(
-        val returnUrl: String, val locale: String? = null
+        @SerialName("return_url") val returnUrl: String,
+        @SerialName("locale") val locale: String? = null
     ) : Confirmation()
 
     @Serializable
     @SerialName(QR_CODE)
-    data class QRCode(val locale: String? = null) : Confirmation()
+    data class QRCode(@SerialName("locale") val locale: String? = null) : Confirmation()
 
     @Serializable
     @SerialName(REDIRECT)
     data class Redirect(
-        val returnUrl: String, val locale: String? = null, val enforce: Boolean? = null
+        @SerialName("return_url") val returnUrl: String,
+        @SerialName("locale") val locale: String? = null,
+        @SerialName("enforce") val enforce: Boolean? = null
     ) : Confirmation()
 
 
@@ -294,15 +299,15 @@ sealed class PaymentMethodData : java.io.Serializable {
 
     @Serializable
     @SerialName(ALFA_CLICK)
-    data class AlfaClick(val login: String? = null) : PaymentMethodData()
+    data class AlfaClick(@SerialName("login") val login: String? = null) : PaymentMethodData()
 
     @Serializable
     @SerialName(MOBILE_BALANCE)
-    data class MobileBalance(val phone: String) : PaymentMethodData()
+    data class MobileBalance(@SerialName("phone") val phone: String) : PaymentMethodData()
 
     @Serializable
     @SerialName(BANK_CARD)
-    data class BankCard(val card: Card? = null) : PaymentMethodData()
+    data class BankCard(@SerialName("card") val card: Card? = null) : PaymentMethodData()
 
     @Serializable
     @SerialName(INSTALLMENTS)
@@ -310,7 +315,7 @@ sealed class PaymentMethodData : java.io.Serializable {
 
     @Serializable
     @SerialName(CASH)
-    data class Cash(val phone: String? = null) : PaymentMethodData()
+    data class Cash(@SerialName("phone") val phone: String? = null) : PaymentMethodData()
 
     @Serializable
     @SerialName(SBP_PAYMENT_TYPE)
@@ -318,8 +323,9 @@ sealed class PaymentMethodData : java.io.Serializable {
 
     @Serializable
     @SerialName(SBERBANK_BUSINESS_ONLINE)
-    data class SberBankBusinessOnline(val paymentPurpose: String, val vatData: VatData) :
-        PaymentMethodData()
+    data class SberBankBusinessOnline(
+        @SerialName("payment_purpose") val paymentPurpose: String,
+        @SerialName("vat_data") val vatData: VatData) : PaymentMethodData()
 
     @Serializable
     @SerialName(TINFOFF_BANK)
@@ -331,11 +337,11 @@ sealed class PaymentMethodData : java.io.Serializable {
 
     @Serializable
     @SerialName(QIWI_METHOD_DATA)
-    data class QIWI(val phone: String? = null) : PaymentMethodData()
+    data class QIWI(@SerialName("phone") val phone: String? = null) : PaymentMethodData()
 
     @Serializable
     @SerialName(SBERPAY)
-    data class SberPay(val phone: String? = null) : PaymentMethodData()
+    data class SberPay(@SerialName("phone") val phone: String? = null) : PaymentMethodData()
 
     companion object {
         //  Payment method data types

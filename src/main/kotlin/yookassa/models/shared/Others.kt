@@ -30,11 +30,11 @@ sealed class VatData : java.io.Serializable {
 
 @Serializable
 data class Transfer(
-    val accountId: String,
-    val amount: Amount,
-    val platformFeeAmount: Amount? = null,
-    val description: String? = null,
-    val metaData: Metadata? = null
+    @SerialName("account_id") val accountId: String,
+    @SerialName("amount") val amount: Amount,
+    @SerialName("platform_fee_amount") val platformFeeAmount: Amount? = null,
+    @SerialName("description") val description: String? = null,
+    @SerialName("metadata") val metadata: Metadata? = null,
 ): java.io.Serializable {
 
     private constructor(builder: Builder) : this(
@@ -42,7 +42,7 @@ data class Transfer(
         amount = builder.amount,
         platformFeeAmount = builder.platformFeeAmount,
         description = builder.description,
-        metaData = builder.metaData
+        metadata = builder.metaData
     )
 
     class Builder {
@@ -165,8 +165,8 @@ data class Deal(
 
 @Serializable
 data class Settlement(
-    val type: String,
-    val amount: Amount,
+    @SerialName("type") val type: String,
+    @SerialName("amount") val amount: Amount,
 ) : java.io.Serializable
 
 typealias Metadata = Map<String, String>

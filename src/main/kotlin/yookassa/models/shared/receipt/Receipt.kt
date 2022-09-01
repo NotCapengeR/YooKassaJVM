@@ -1,18 +1,19 @@
-package yookassa.models.request
+package yookassa.models.shared.receipt
 
+import kotlinx.serialization.SerialName
 import yookassa.models.shared.TaxSystemCode
 import yookassa.models.shared.item.Item
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ReceiptRequest(
-    val items: List<Item>,
-    val customer: Customer? = null,
-    val phone: String? = null,
-    val email: String? = null,
-    val taxSystemCode: Int? = null,
-    val recipientIndustryDetails: List<ReceiptIndustryDetails>? = null,
-    val recipientOperationalDetails: RecipientOperationalDetails? = null
+data class Receipt(
+    @SerialName("customer") val customer: Customer? = null,
+    @SerialName("items") val items: List<Item>,
+    @SerialName("phone") val phone: String? = null,
+    @SerialName("email") val email: String? = null,
+    @SerialName("tax_system_code") val taxSystemCode: Int? = null,
+    @SerialName("receipt_industry_details") val recipientIndustryDetails: List<ReceiptIndustryDetails>? = null,
+    @SerialName("receipt_operational_details") val recipientOperationalDetails: RecipientOperationalDetails? = null
 ): java.io.Serializable {
 
     private constructor(builder: Builder) : this(
@@ -86,16 +87,16 @@ data class ReceiptRequest(
             createdAt: String
         ): Builder = recipientOperationalDetails(RecipientOperationalDetails(operationId, value, createdAt))
 
-        fun build(): ReceiptRequest = ReceiptRequest(this)
+        fun build(): Receipt = Receipt(this)
     }
 }
 
 @Serializable
 data class Customer(
-    val fullName: String? = null,
-    val inn: Int? = null,
-    val email: String? = null,
-    val phone: String? = null
+    @SerialName("full_name") val fullName: String? = null,
+    @SerialName("inn") val inn: Int? = null,
+    @SerialName("email") val email: String? = null,
+    @SerialName("phone") val phone: String? = null
 ): java.io.Serializable {
 
     private constructor(builder: Builder) : this(
@@ -129,15 +130,20 @@ data class Customer(
 
 @Serializable
 data class ReceiptIndustryDetails(
-    val federalId: String,
-    val documentDate: String,
-    val documentNumber: String,
-    val value: String
+    @SerialName("federal_id") val federalId: String,
+    @SerialName("document_date") val documentDate: String,
+    @SerialName("document_number") val documentNumber: String,
+    @SerialName("value") val value: String
 )
 
 @Serializable
 data class RecipientOperationalDetails(
-    val operationId: Int,
-    val value: String,
-    val createdAt: String
+    @SerialName("operation_id") val operationId: Int,
+    @SerialName("value") val value: String,
+    @SerialName("created_at") val createdAt: String
 )
+
+@Serializable
+enum class ReceiptType(val type: String) : java.io.Serializable {
+    Payment("payment"), Refund("refund")
+}

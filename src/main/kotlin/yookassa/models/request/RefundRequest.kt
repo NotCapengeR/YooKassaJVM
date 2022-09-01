@@ -7,13 +7,14 @@ import yookassa.models.shared.refunds.RefundSettlement
 import yookassa.models.shared.refunds.Source
 import yookassa.utils.toAmount
 import kotlinx.serialization.Serializable
+import yookassa.models.shared.receipt.Receipt
 
 @Serializable
 data class RefundRequest(
     val paymentId: String,
     val amount: Amount,
     val description: String? = null,
-    val receipt: ReceiptRequest? = null,
+    val receipt: Receipt? = null,
     val sources: List<Source>? = null,
     val deal: Deal? = null,
 ): java.io.Serializable {
@@ -31,7 +32,7 @@ data class RefundRequest(
         internal lateinit var paymentId: String
         internal lateinit var amount: Amount
         internal var description: String? = null
-        internal var receipt: ReceiptRequest? = null
+        internal var receipt: Receipt? = null
         internal var sources: List<Source>? = null
         internal var deal: Deal? = null
 
@@ -43,7 +44,7 @@ data class RefundRequest(
         fun amount(value: Amount): Builder = apply { this.amount = value }
 
         fun description(value: String?): Builder = apply { this.description = value }
-        fun receipt(value: ReceiptRequest?): Builder = apply { this.receipt = value }
+        fun receipt(value: Receipt?): Builder = apply { this.receipt = value }
         fun sources(vararg value: Source): Builder = sources(value.toList())
 
         fun sources(value: List<Source>?): Builder = apply { this.sources = value }

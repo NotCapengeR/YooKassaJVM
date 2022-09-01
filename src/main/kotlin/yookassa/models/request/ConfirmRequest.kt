@@ -1,19 +1,21 @@
 package yookassa.models.request
 
+import kotlinx.serialization.SerialName
 import yookassa.YooKassaConfig
 import yookassa.models.shared.Amount
 import yookassa.models.shared.Currencies
 import yookassa.models.shared.refunds.Deal
 import yookassa.utils.toAmount
 import kotlinx.serialization.Serializable
+import yookassa.models.shared.receipt.Receipt
 import java.math.BigDecimal
 
 @Serializable
 data class ConfirmRequest(
     val amount: Amount,
-    val receipt: ReceiptRequest? = null,
+    val receipt: Receipt? = null,
     val airline: Airline? = null,
-    val transfers: List<Transfer>? = null,
+    val transfers: List<yookassa.models.shared.Transfer>? = null,
     val deal: Deal? = null
 ): java.io.Serializable {
 
@@ -28,11 +30,11 @@ data class ConfirmRequest(
     class Builder(
         internal val amount: Amount
     ) {
-        internal var receipt: ReceiptRequest? = null
+        internal var receipt: Receipt? = null
             private set
         internal var airline: Airline? = null
             private set
-        internal var transfers: List<Transfer>? = null
+        internal var transfers: List<yookassa.models.shared.Transfer>? = null
             private set
         internal var deal: Deal? = null
             private set
@@ -83,13 +85,13 @@ data class ConfirmRequest(
             currency: Currencies = YooKassaConfig.DEFAULT_CURRENCY
         ) : this(Amount(value.toAmount(), currency.name))
 
-        fun receipt(receipt: ReceiptRequest?): Builder = apply { this.receipt = receipt }
+        fun receipt(receipt: Receipt?): Builder = apply { this.receipt = receipt }
 
         fun airline(airline: Airline?): Builder = apply { this.airline = airline }
 
-        fun transfers(transfers: List<Transfer>?): Builder = apply { this.transfers = transfers }
+        fun transfers(transfers: List<yookassa.models.shared.Transfer>?): Builder = apply { this.transfers = transfers }
 
-        fun transfers(vararg transfers: Transfer): Builder = transfers(transfers.toList())
+        fun transfers(vararg transfers: yookassa.models.shared.Transfer): Builder = transfers(transfers.toList())
 
         fun dead(deal: Deal?): Builder = apply { this.deal = deal }
 
@@ -99,7 +101,7 @@ data class ConfirmRequest(
 
 @Serializable
 data class Transfer @JvmOverloads constructor(
-    val accountId: String,
-    val amount: Amount,
-    val platformFeeAmount: Amount? = null,
+    @SerialName("account_id") val accountId: String,
+    @SerialName("amount") val amount: Amount,
+    @SerialName("platform_fee_amount") val platformFeeAmount: Amount? = null
 ): java.io.Serializable

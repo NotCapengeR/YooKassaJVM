@@ -1,5 +1,6 @@
 package yookassa.models.shared.item
 
+import kotlinx.serialization.SerialName
 import yookassa.YooKassaConfig
 import yookassa.models.shared.Amount
 import yookassa.models.shared.Currencies
@@ -9,21 +10,21 @@ import kotlin.properties.Delegates
 
 @Serializable
 data class Item(
-    val amount: Amount,
-    val description: String,
-    val quantity: Int,
-    val vatCode: Int,
-    val measure: String? = null,
-    val markQuantity: MarkQuantity? = null,
-    val paymentSubject: String? = null,
-    val paymentMode: String? = null,
-    val countyOfOriginMode: String? = null,
-    val customerDeclarationNumber: String? = null,
-    val excise: String? = null,
-    val productCode: String? = null,
-    val markCodeInfo: MarkCodeInfo? = null,
-    val markMode: String? = null,
-    val paymentSubjectIndustryDetails: List<PaymentSubjectIndustryDetails>? = null
+    @SerialName("amount") val amount: Amount,
+    @SerialName("description") val description: String,
+    @SerialName("quantity") val quantity: Int,
+    @SerialName("measure") val measure: String? = null,
+    @SerialName("mark_quantity") val markQuantity: MarkQuantity? = null,
+    @SerialName("vat_code") val vatCode: Int,
+    @SerialName("payment_subject") val paymentSubject: String? = null,
+    @SerialName("payment_mode") val paymentMode: String? = null,
+    @SerialName("country_of_origin_code") val countyOfOriginMode: String? = null,
+    @SerialName("customs_declaration_number") val customerDeclarationNumber: String? = null,
+    @SerialName("excise") val excise: String? = null,
+    @SerialName("product_code") val productCode: String? = null,
+    @SerialName("mark_code_info") val markCodeInfo: MarkCodeInfo? = null,
+    @SerialName("mark_mode") val markMode: String? = null,
+    @SerialName("payment_subject_industry_details") val paymentSubjectIndustryDetails: List<PaymentSubjectIndustryDetails>? = null
 ): java.io.Serializable {
 
     private constructor(builder: Builder) : this(
@@ -104,20 +105,24 @@ data class Item(
 }
 
 @Serializable
-data class MarkQuantity(val numerator: Int, val denominator: Int): java.io.Serializable
+data class MarkQuantity(
+    @SerialName("numerator") val numerator: Int,
+    @SerialName("denominator") val denominator: Int
+    ): java.io.Serializable
 
 @Serializable
 data class MarkCodeInfo(
-    val markCodeRaw: String? = null,
-    val unknown: String? = null,
-    val ean8: String? = null,
-    val ean13: String? = null,
-    val gs10: String? = null,
-    val gs1m: String? = null,
-    val short: String? = null,
-    val fur: String? = null,
-    val egais20: String? = null,
-    val egais30: String? = null
+    @SerialName("mark_code_raw") val markCodeRaw: String? = null,
+    @SerialName("unknown") val unknown: String? = null,
+    @SerialName("ean_8") val ean8: String? = null,
+    @SerialName("ean_13") val ean13: String? = null,
+    @SerialName("itf_14") val itf14: String? = null,
+    @SerialName("gs_10") val gs10: String? = null,
+    @SerialName("gs_1m") val gs1m: String? = null,
+    @SerialName("short") val short: String? = null,
+    @SerialName("fur") val fur: String? = null,
+    @SerialName("egais_20") val egais20: String? = null,
+    @SerialName("egais_30") val egais30: String? = null
 ): java.io.Serializable {
 
     private constructor(builder: Builder) : this(
@@ -173,8 +178,8 @@ data class MarkCodeInfo(
 
 @Serializable
 data class PaymentSubjectIndustryDetails(
-    val federalId: String,
-    val documentDate: String,
-    val documentNumber: String,
-    val value: String
+    @SerialName("federal_id") val federalId: String,
+    @SerialName("document_date") val documentDate: String,
+    @SerialName("document_number") val documentNumber: String,
+    @SerialName("value") val value: String
 ): java.io.Serializable
